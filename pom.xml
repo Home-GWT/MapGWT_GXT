@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ejemplo.sencha</groupId>
-    <artifactId>com.ejemplo.sencha</artifactId>
+    <groupId>com.map</groupId>
+    <artifactId>gxt</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>gxt-basic-public-3x</name>
-    <description>GXT maven setup</description>
+    <description>MAP-interface used GXT</description>
 
     <properties>
         <!-- GXT -->
@@ -92,7 +92,7 @@
                     <port>8889</port>
                     <bindAddress>0.0.0.0</bindAddress>
                     <runTarget>Project.html</runTarget>
-                    <module>com.ejemplo.sencha.Project</module>
+                    <module>com.map.gxt.Project</module>
                 </configuration>
                 <executions>
                     <execution>

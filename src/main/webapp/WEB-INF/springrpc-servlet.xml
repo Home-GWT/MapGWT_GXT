@@ -23,7 +23,7 @@
     </bean>
     
     
-    <bean id="ServiceControllerGWTService" class="com.ejemplo.sencha.server.comm.ServletWrappingController">
+    <bean id="ServiceControllerGWTService" class="com.map.gxt.server.comm.ServletWrappingController">
         <property name="servletName" value="GWTService"/>    
         <property name="servletInstance">
             <ref bean="GWTService"/>
@@ -32,7 +32,7 @@
     
         
     
-    <bean id="GWTService" class="com.ejemplo.sencha.server.GWTServiceImpl"> </bean>
+    <bean id="GWTService" class="com.map.gxt.server.GWTServiceImpl"> </bean>
     
 
 </beans>

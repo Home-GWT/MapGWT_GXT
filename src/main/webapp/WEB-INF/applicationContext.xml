@@ -34,7 +34,7 @@
         </property>
         <property name="annotatedClasses">
             <list>
-                <value>com.ejemplo.sencha.client.entidades.Usuario</value>
+                <value>com.map.gxt.client.entidades.Usuario</value>
             </list>
         </property>
         <property name="eventListeners">
@@ -55,5 +55,5 @@
     <!-- Scan por los DAO -->
     <context:component-scan base-package="com.ejemplo.sencha.server.dao"/>
     <!-- Declaramos los servicios explicitamente para poder referenciarlos-->
-    <bean class="com.ejemplo.sencha.server.servicios.impl.ServicioUsuariosImpl" id="servicioUsuarios"/>
+    <bean class="com.map.gxt.server.servicios.impl.ServicioUsuariosImpl" id="servicioUsuarios"/>
 </beans>

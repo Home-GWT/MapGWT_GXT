@@ -4,7 +4,7 @@
     <!-- Default page to serve -->
     <!--servlet>
         <servlet-name>GWTService</servlet-name>
-        <servlet-class>com.ejemplo.sencha.server.GWTServiceImpl</servlet-class>
+        <servlet-class>GWTServiceImpl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GWTService</servlet-name>
