@@ -1,4 +1,4 @@
-package com.map.gxt.client.tables.grid;
+package com.map.gxt.client.grid;
 
 import com.google.gwt.editor.client.Editor.Path;
 import com.sencha.gxt.core.client.ValueProvider;

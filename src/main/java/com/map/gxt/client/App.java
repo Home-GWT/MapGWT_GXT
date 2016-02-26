@@ -1,8 +1,11 @@
 package com.map.gxt.client;
 
-import com.map.gxt.client.tables.grid.CellGridExample2;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.map.gxt.client.grid.GridTable1;
+import com.map.gxt.client.grid.GridTable2;
+import com.map.gxt.client.layout.HorizontalContainer;
+import com.map.gxt.client.tables.VerticalContainer;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -11,16 +14,18 @@ public class App implements  EntryPoint {
     @Override
   public void onModuleLoad() {
 ////        FormularioUsuarios form = new FormularioUsuarios();
-        CellGridExample2 grids2 = new CellGridExample2();
-//        HorizontalLayoutExample3 layout = new HorizontalLayoutExample3();
-//        BasicTabExample2 tabs = new BasicTabExample2();
-//        FilterGridExample2 grids = new FilterGridExample2();
+        HorizontalContainer hContainer = new HorizontalContainer();
+        VerticalContainer vContainer = new VerticalContainer();
+        GridTable1 tGrid1 = new GridTable1();
+        GridTable2 tGrid2 = new GridTable2();
+//        CheckBoxGridExample2 tGrid = new CheckBoxGridExample2();
 
 ////        RootPanel.get().add(form);
-//        RootPanel.get().add(layout);
-//        RootPanel.get().add(tabs);
-//        RootPanel.get().add(grids);
-        RootPanel.get().add(grids2);
+        RootPanel.get().add(hContainer);
+//        RootPanel.get().add(vContainer);
+//        RootPanel.get().add(tGrid1);
+//        RootPanel.get().add(tGrid2);
+//        RootPanel.get().add(tGrid);
     }
   
 //  @Override

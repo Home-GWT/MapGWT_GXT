@@ -1,4 +1,4 @@
-package com.map.gxt.client.tables.grid;
+package com.map.gxt.client.grid;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -20,7 +20,7 @@ import com.sencha.gxt.widget.core.client.grid.filters.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilterGridExample2 implements IsWidget {
+public class GridTable1 implements IsWidget {
     private static final StockProperties props = GWT.create(StockProperties.class);
     private ContentPanel panel;
 
@@ -120,8 +120,6 @@ public class FilterGridExample2 implements IsWidget {
             panel = new ContentPanel();
             panel.add(grid);
         }
-
         return panel;
     }
-
 }

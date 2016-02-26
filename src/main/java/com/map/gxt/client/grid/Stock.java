@@ -1,4 +1,4 @@
-package com.map.gxt.client.tables.grid;
+package com.map.gxt.client.grid;
 
 import java.io.Serializable;
 import java.util.Date;
