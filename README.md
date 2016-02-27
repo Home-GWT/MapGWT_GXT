@@ -32,4 +32,5 @@ http://localhost:8083/MapGWT_GXT/
                                             (gwt-maps-gxt)
 ** (Google Maps ** Using Google maps API with GXT and GWT) https://docs.sencha.com/gxt/3.x/apis/GoogleMaps.html
                                                            https://developers.google.com/maps/documentation/javascript/
+                                                           [https://www.google.com.ua/maps/@46.9330645,32.007997,11z?hl=ru](https://www.google.com.ua/maps/@46.9330645,32.007997,11z?hl=ru)
                                     (Gwt Maps Gxt » 1.0.0) http://mvnrepository.com/artifact/com.claudiushauptmann/gwt-maps-gxt/1.0.0

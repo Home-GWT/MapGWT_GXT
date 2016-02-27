@@ -34,7 +34,7 @@
         </property>
         <property name="annotatedClasses">
             <list>
-                <value>com.map.gxt.client.entidades.Usuario</value>
+                <value>com.demo.gxt_google_maps.client.entidades.Usuario</value>
             </list>
         </property>
         <property name="eventListeners">
@@ -53,7 +53,7 @@
     <tx:annotation-driven/>
     <aop:aspectj-autoproxy/>
     <!-- Scan por los DAO -->
-    <context:component-scan base-package="com.ejemplo.sencha.server.dao"/>
+    <context:component-scan base-package="com.demo.gxt_google_maps.server.dao"/>
     <!-- Declaramos los servicios explicitamente para poder referenciarlos-->
-    <bean class="com.map.gxt.server.servicios.impl.ServicioUsuariosImpl" id="servicioUsuarios"/>
+    <bean class="com.demo.gxt_google_maps.server.servicios.impl.ServicioUsuariosImpl" id="servicioUsuarios"/>
 </beans>

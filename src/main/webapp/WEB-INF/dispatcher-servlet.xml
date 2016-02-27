@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
     
     <context:annotation-config />    
-    <context:component-scan base-package="com.map.gxt.server.rest"/>
+    <context:component-scan base-package="com.demo.gxt_google_maps.server.rest"/>
     
     <bean id="contentNegotiatingViewResolver"
       class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">

@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.gwt-gxt</groupId>
-    <artifactId>google-maps</artifactId>
+    <groupId>com.demo</groupId>
+    <artifactId>gxt-google-maps</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>gxt-basic-public-3x</name>
@@ -92,7 +92,7 @@
                     <port>8889</port>
                     <bindAddress>0.0.0.0</bindAddress>
                     <runTarget>Project.html</runTarget>
-                    <module>com.map.gxt.Project</module>
+                    <module>com.demo.gxt_google_maps.App</module>
                 </configuration>
                 <executions>
                     <execution>
@@ -134,7 +134,7 @@
 
     <dependencies>
         <!-- GXT -->
-        <!-- http://docs.sencha.com/gxt/3.1/getting_started/maven/Maven.html -->
+        <!-- http://docs.sencha.com/gxt_google_maps/3.1/getting_started/maven/Maven.html -->
         <dependency>
             <groupId>com.sencha.gxt</groupId>
             <artifactId>gxt</artifactId>
