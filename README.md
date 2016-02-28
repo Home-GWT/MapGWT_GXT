@@ -4,37 +4,32 @@
 
 
 
-* http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#
-* http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:basictabs
-* http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:basicsimplegrid(uibinder)
-* http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:filtergrid
-* http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:paginggrid
-* http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:comboboxadvanced
-* http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:comboboxstyled
-* http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:horizontalboxlayout
-* http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:horizontallayout
-* http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:cellgrid
-
-* http://localhost:8081/SenchaGXTEjemplo
-
-
-* (MarginData center ** setMargins ** setWestWidget ** BorderLayoutContainer) https://github.com/Home-GWT/MapGWT_GXT/blob/release/src/main/java/com/map/gxt/client/tables/layout/HBoxLayoutExample2.java
-
 * (Overview) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#
-*
-* (Horizontal Layout) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:horizontallayout
-* (Basic Tabs) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:basictabs
-* (Filter Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:filtergrid
-* (Cell Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:cellgrid
-* (Check Box Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:checkboxgrid
-*
-* (Row Editable Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:roweditablegrid
-* (Basic Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:basicgrid
-* (Row Expander Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:rowexpandergrid
-* (Combo Box Advanced) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:comboboxadvanced
-* (Accordion Layout) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:accordionlayout
 
-http://localhost:8083/MapGWT_GXT/
+* (Basic Tabs) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:basictabs
+*
+* (Basic Simple grid (Uibinder)) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:basicsimplegrid(uibinder)
+*                  (Filter Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:filtergrid
+*                  (Paging Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:paginggrid
+*           (Combo Box Advanced) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:comboboxadvanced
+*             (Combo Box Styled) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:comboboxstyled
+*        (Horizontal Box Layout) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:horizontalboxlayout
+*            (Horizontal Layout) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:horizontallayout
+*                    (Cell Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:cellgrid
+*  (Horizontal Layout) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:horizontallayout
+*         (Basic Tabs) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:basictabs
+* 
+*     (Check Box Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:checkboxgrid
+*
+*  (Row Editable Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:roweditablegrid
+*         (Basic Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:basicgrid
+*  (Row Expander Grid) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:rowexpandergrid
+. (Combo Box Advanced) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:comboboxadvanced
+*   (Accordion Layout) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#ExamplePlace:accordionlayout
+
+
+http://localhost:8081/SenchaGXTEjemplo
+http://localhost:8083/MapGWT_GXT
 
                                             (gwt-maps-gxt)
 ** (Google Maps ** Using Google maps API with GXT and GWT) https://docs.sencha.com/gxt/3.x/apis/GoogleMaps.html
@@ -55,6 +50,8 @@ http://localhost:8083/MapGWT_GXT/
                        https://github.com/lmignon/GWTP-GXT3-SAMPLES/tree/master/sample-tab/src/main/java/eu/acsone/client/gxt/tabs
                        https://github.com/lmignon/GWTP-GXT3-SAMPLES/blob/master/sample-tab/src/main/java/eu/acsone/client/gxt/tabs/SimpleTabPanel.java
                        https://github.com/lmignon/GWTP-GXT3-SAMPLES/blob/master/sample-tab/src/main/java/eu/acsone/client/gxt/tabs/SimpleTab.java
+
+* (MarginData center ** setMargins ** setWestWidget ** BorderLayoutContainer) https://github.com/Home-GWT/MapGWT_GXT/blob/release/src/main/java/com/map/gxt/client/tables/layout/HBoxLayoutExample2.java
 
    (Listen to tab selection event (Ext GWT) ** Tab « GWT « Java) http://www.java2s.com/Code/Java/GWT/ListentotabselectioneventExtGWT.htm
            (com.extjs.gxt.ui.client ** a grid in tabPanel error) http://stackoverflow.com/questions/6723882/a-grid-in-tabpanel-error
