@@ -15,4 +15,21 @@ public interface ContactProperties extends PropertyAccess<Contact> {
 	ValueProvider<Contact, String> phone();
 	
 	ValueProvider<Contact, String> email();
+
+
+    ValueProvider<Contact, String> firstName();
+    ValueProvider<Contact, String> lastName();
+    ValueProvider<Contact, String> time();
+    ValueProvider<Contact, String> timePosition();
+    ValueProvider<Contact, String> timeServer();
+    ValueProvider<Contact, Integer> speed();
+    ValueProvider<Contact, Integer> height();
+    ValueProvider<Contact, String> model();
+    ValueProvider<Contact, String> number();
+    ValueProvider<Contact, Integer> distance();
+    ValueProvider<Contact, String> position();
+    ValueProvider<Contact, Integer> degree();
+    ValueProvider<Contact, Integer> vehicleType();
+    ValueProvider<Contact, Boolean> wifi();
+    ValueProvider<Contact, MyObject> object();
 }

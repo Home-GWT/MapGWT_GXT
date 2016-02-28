@@ -66,3 +66,5 @@ http://localhost:8083/MapGWT_GXT
 * (Google Web Toolkit (GWT) & Servlets - Web application tutorial) http://www.digizol.com/2008/09/java-gwt-servlets-web-app-tutorial.html
 
 (WindowState state = stateHandler.getState().getWindowState().get(stateId) ** window.setPixelSize(state.getWidth(), state.getHeight())) http://extjs-public.googlecode.com/svn/gxt-3.x/release/examples-src/com/sencha/gxt/explorer/client/misc/WindowStateExample.java
+
+*** (Разработка веб-приложения ** При изучении технологий Ext JS и Java, написал web-приложение «Каталог автомобилей») https://habrahabr.ru/post/240033/

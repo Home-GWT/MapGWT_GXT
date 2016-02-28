@@ -57,7 +57,7 @@ public class GridTable2 implements IsWidget {
                     super.onRefresh(event);
                 }
             };
-//            columnSelectionModel1.setCell(selectionModel1);
+//            columnSelectionModel.setCell(selectionModel.getColumn());
 
             ////////////////////////////////////////////////////////// colorColumn
             ColumnConfig<Plant, String> colorColumn = new ColumnConfig<Plant, String>(properties.color(), 25); //ColumnConfig<Plant, String> colorColumn = new ColumnConfig<Plant, String>(properties.color(), 150, "Color");
