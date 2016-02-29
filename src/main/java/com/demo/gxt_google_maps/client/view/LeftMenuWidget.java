@@ -1,8 +1,8 @@
 package com.demo.gxt_google_maps.client.view;
 
-import com.demo.gxt_google_maps.client.view2.util.ContactTestData;
+import com.demo.gxt_google_maps.client.rpc.ContactTestData;
 import com.demo.gxt_google_maps.shared.Contact;
-import com.demo.gxt_google_maps.shared.ContactProperties;
+import com.demo.gxt_google_maps.client.rpc.ContactProperties;
 import com.demo.gxt_google_maps.shared.MyObject;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
@@ -21,7 +21,7 @@ import com.sencha.gxt.widget.core.client.grid.RowExpander;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.demo.gxt_google_maps.client.view2.util.ContactTestData;
+//import com.demo.gxt_google_maps.client.rpc.ContactTestData;
 
 public class LeftMenuWidget extends Grid<Contact> {
 	private static final ContactProperties props = GWT.create(ContactProperties.class);

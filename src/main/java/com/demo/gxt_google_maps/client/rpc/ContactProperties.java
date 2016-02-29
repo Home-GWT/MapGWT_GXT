@@ -1,5 +1,7 @@
-package com.demo.gxt_google_maps.shared;
+package com.demo.gxt_google_maps.client.rpc;
 
+import com.demo.gxt_google_maps.shared.Contact;
+import com.demo.gxt_google_maps.shared.MyObject;
 import com.google.gwt.editor.client.Editor.Path;
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;

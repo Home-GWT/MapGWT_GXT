@@ -1,4 +1,4 @@
-package com.demo.gxt_google_maps.client.view2.util;
+package com.demo.gxt_google_maps.client.rpc;
 
 import com.demo.gxt_google_maps.shared.Contact;
 
