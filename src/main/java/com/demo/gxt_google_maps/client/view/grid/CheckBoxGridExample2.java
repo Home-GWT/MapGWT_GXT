@@ -16,8 +16,8 @@
 //import com.sencha.gxt_google_maps.data.shared.ListStore;
 //import com.sencha.gxt_google_maps.data.shared.StringLabelProvider;
 //import com.sencha.gxt_google_maps.examples.resources.client.TestData;
-//import com.sencha.gxt_google_maps.examples.resources.client.model.Stock;
-//import com.sencha.gxt_google_maps.examples.resources.client.model.StockProperties;
+//import com.sencha.gxt_google_maps.examples.resources.client.shared.Stock;
+//import com.sencha.gxt_google_maps.examples.resources.client.shared.StockProperties;
 //import com.sencha.gxt_google_maps.widget.core.client.ContentPanel;
 //import com.sencha.gxt_google_maps.widget.core.client.container.VerticalLayoutContainer;
 //import com.sencha.gxt_google_maps.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;

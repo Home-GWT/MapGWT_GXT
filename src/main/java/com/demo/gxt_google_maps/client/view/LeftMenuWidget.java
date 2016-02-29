@@ -1,9 +1,9 @@
-package com.demo.gxt_google_maps.client.view2.grid;
+package com.demo.gxt_google_maps.client.view;
 
-import com.demo.gxt_google_maps.client.view2.model.Contact;
-import com.demo.gxt_google_maps.client.view2.model.ContactProperties;
-import com.demo.gxt_google_maps.client.view2.model.MyObject;
-import com.demo.gxt_google_maps.client.view2.util.ContactTestData;
+import com.demo.gxt_google_maps.shared.Contact;
+import com.demo.gxt_google_maps.shared.ContactProperties;
+import com.demo.gxt_google_maps.shared.MyObject;
+//import com.demo.gxt_google_maps.client.view2.util.ContactTestData;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -21,7 +21,7 @@ import com.sencha.gxt.widget.core.client.grid.RowExpander;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleGrid extends Grid<Contact> {
+public class LeftMenuWidget extends Grid<Contact> {
 	private static final ContactProperties props = GWT.create(ContactProperties.class);
 //    private static final String[]                  COLORS = {"82a700"};
 	private static ColumnConfig<Contact, Boolean>    viewCol = new ColumnConfig<Contact, Boolean>(props.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='23' style='margin-top:-4px; margin-left:-1px;' />"));
@@ -36,8 +36,8 @@ public class SimpleGrid extends Grid<Contact> {
     static TabPanel[] tabPanel = new TabPanel[20];
     static int counter = 0;
 
-    public SimpleGrid() {
-        super(generateData(), createColumnModel());
+    public LeftMenuWidget() {
+        super(store, createColumnModel()); //super(generateData(), createColumnModel());
 
         this.setAllowTextSelection(true);
         this.getView().setStripeRows(true);
@@ -58,7 +58,7 @@ public class SimpleGrid extends Grid<Contact> {
             tabPanel[counter] = new TabPanel();
 
             StringBuilder expanderStringBuilder = new StringBuilder();
-            expanderStringBuilder.append("<style type='text/css'>table.underline {border-spacing:0;width:340px;} table.underline td:first-child{width:100px;padding-left:7px;} table.underline td:last-child{width:240px;} table.underline td {border-bottom:1px solid #ddd;height:20px;} table.underline tr:last-child td {border-bottom:none;}</style>");
+//            expanderStringBuilder.append("<style type='text/css'>table.underline {border-spacing:0;width:340px;} table.underline td:first-child{width:100px;padding-left:7px;} table.underline td:last-child{width:240px;} table.underline td {border-bottom:1px solid #ddd;height:20px;} table.underline tr:last-child td {border-bottom:none;}</style>");
             expanderStringBuilder.append("<table class='underline'>");
             expanderStringBuilder.append("<tr><td>Водитель:</td> <td><font color='blue'>"+value.getFirstName()+" "+value.getLastName()+"</font></td></tr>");
             expanderStringBuilder.append("<tr><td>Время (позиция):</td> <td>"+value.getTimePosition()+"</td></tr>");
@@ -195,15 +195,14 @@ public class SimpleGrid extends Grid<Contact> {
 		return new ColumnModel<Contact>(columnConfigList);
 	}
 
-//    @Override
-//    protected void onResize(int width, int height) {
-//        super.onResize(width, height);
-//    }
-
-	private static ListStore<Contact> generateData(){
-		ListStore<Contact> store = new ListStore<Contact>(props.key());
-		store.addAll(ContactTestData.generateData());
-		
-		return store;
-	}
+    private static ListStore<Contact> store = new ListStore<Contact>(props.key());
+//	private static ListStore<Contact> generateData(){
+//		ListStore<Contact> store = new ListStore<Contact>(props.key());
+//		store.addAll(ContactTestData.generateData());
+//
+//		return store;
+//	}
+    public static void setStore(List<Contact> thatStore){
+        store.addAll(thatStore);
+    }
 }

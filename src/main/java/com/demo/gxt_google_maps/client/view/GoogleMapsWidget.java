@@ -1,5 +1,6 @@
-package com.demo.gxt_google_maps.client.view.maps;
+package com.demo.gxt_google_maps.client.view;
 
+import com.demo.gxt_google_maps.client.view.maps.MapsHandler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.ScriptElement;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -7,7 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.dom.XElement;
 import com.sencha.gxt.widget.core.client.container.SimpleContainer;
 
-public class GoogleMaps implements IsWidget {
+public class GoogleMapsWidget implements IsWidget {
 
     private SimpleContainer container;
 

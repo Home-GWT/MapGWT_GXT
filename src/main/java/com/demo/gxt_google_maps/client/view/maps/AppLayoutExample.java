@@ -1,5 +1,6 @@
 package com.demo.gxt_google_maps.client.view.maps;
 
+import com.demo.gxt_google_maps.client.view.GoogleMapsWidget;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.util.Margins;
@@ -41,7 +42,7 @@ public class AppLayoutExample {
     }
 
     public Widget getCenterWidget() {
-        GoogleMaps googleMaps = new GoogleMaps();
+        GoogleMapsWidget googleMaps = new GoogleMapsWidget();
 
         SimpleContainer w = new SimpleContainer();
         w.setBorders(true);

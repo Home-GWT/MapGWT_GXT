@@ -2,6 +2,8 @@
 
 ![interface1.1.jpg](interface1.1.jpg)
 
+![project.jpg](project.jpg)
+
 
 
 * (Overview) http://examples.sencha.com/gxt/4.0.0/examples/explorer-gray.html#
@@ -44,6 +46,8 @@ http://localhost:8083/MapGWT_GXT
                      (GWT Google Map (Static and Dynamic)) http://peyotest.blogspot.com/2011/03/gwt-google-map-static-and-dynamic.html
                                     (Gwt Maps Gxt » 1.0.0) http://mvnrepository.com/artifact/com.claudiushauptmann/gwt-maps-gxt/1.0.0
 **                (SENCHA MAP & TABPANEL SIZE ISSUE [FIX]) https://techtalktone.wordpress.com/2012/03/13/sencha-map-tabpanel-size-issue-fix/
+**          (сгенерить кодля для >> google-maps to iframe) https://www.embed-map.com/
+                                                           https://www.google.com.ua/maps/@50.3551709,30.3359953,8.75z
 
 *  (GXT 3.0 Guides ** Grid widget) https://docs.sencha.com/gxt-guides/3/ui/widgets/grid/Grid.html
 ** (GWTP-GXT3-SAMPLES) https://github.com/lmignon/GWTP-GXT3-SAMPLES
@@ -68,3 +72,22 @@ http://localhost:8083/MapGWT_GXT
 (WindowState state = stateHandler.getState().getWindowState().get(stateId) ** window.setPixelSize(state.getWidth(), state.getHeight())) http://extjs-public.googlecode.com/svn/gxt-3.x/release/examples-src/com/sencha/gxt/explorer/client/misc/WindowStateExample.java
 
 *** (Разработка веб-приложения ** При изучении технологий Ext JS и Java, написал web-приложение «Каталог автомобилей») https://habrahabr.ru/post/240033/
+
+
+                  (originalValue.toUpperCase()) http://stackoverflow.com/questions/30870588/how-to-apply-style-on-a-textfield-in-a-treegrid-sencha-gxt-3-1
+   (.setHeader(SafeHtmlUtils.fromTrustedString) https://www.sencha.com/forum/archive/index.php/t-250591.html?s=4ab77cfc429813fd92946941f1f35a59
+      
+*** (Basic Grid using UiBinder in GXT3) http://healthycoder.in/basic-grid-using-uibinder-in-gxt3/
+                                        https://github.com/prabhu-durasoft/BasicGridUIBinderGXT3/blob/master/src/com/durasoft/client/ui/CountryGridExample.java
+    (GXT grid auto columns width) http://wenda.soso.io/questions/4475857/gxt-grid-auto-columns-width
+                                        
+*   (Ext JS 4 Grid «на пальцах») https://habrahabr.ru/post/169125/
+
+    (Working with GXT(Ext GWT) Grid : Create an Editable Grid) http://zawoad.blogspot.com/2009/09/working-with-gxtext-gwt-grid-create.html
+    (branflake2267/GridInlineEditingTest.java) https://gist.github.com/branflake2267/11091554
+    (Autofit Column Width in a GXT Grid) http://greatlogic.com/2014/06/02/autofit-column-width-in-a-gxt-grid/
+    (Column Style ** Column alignments) https://docs.sencha.com/gxt/3.x/ui/grid/columns/ColumnStyle.html
+                                        https://docs.sencha.com/gxt-guides/3/ui/widgets/grid/columns/ColumnStyle.html
+    (SafeHtmlUtils) https://docs.sencha.com/gxt/3.x/ui/SafeHtml.html
+    https://reminiscential.wordpress.com/2010/02/09/gxt-widget-expander-1-0-release/
+    
