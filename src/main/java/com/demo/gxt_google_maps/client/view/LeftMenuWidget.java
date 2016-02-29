@@ -1,6 +1,6 @@
 package com.demo.gxt_google_maps.client.view;
 
-import com.demo.gxt_google_maps.client.rpc.TransitData;
+import com.demo.gxt_google_maps.client.rpc.UtilTransit;
 import com.demo.gxt_google_maps.shared.Transit;
 import com.demo.gxt_google_maps.client.rpc.GWTService;
 import com.demo.gxt_google_maps.shared.HeadTransit;
@@ -199,7 +199,7 @@ public class LeftMenuWidget extends Grid<Transit> {
 
 	private static ListStore<Transit> generateData(){
 		ListStore<Transit> store = new ListStore<Transit>(props.key());
-		store.addAll(TransitData.generateData());
+		store.addAll(UtilTransit.generateData());
 
 		return store;
 	}

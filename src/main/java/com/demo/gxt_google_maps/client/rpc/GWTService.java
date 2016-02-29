@@ -8,16 +8,8 @@ import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
 
 public interface GWTService extends PropertyAccess<Transit> {
-
 	@Path("id")
 	ModelKeyProvider<Transit> key();
-	
-	ValueProvider<Transit, String> name();
-	
-	ValueProvider<Transit, String> phone();
-	
-	ValueProvider<Transit, String> email();
-
 
     ValueProvider<Transit, String> firstName();
     ValueProvider<Transit, String> lastName();

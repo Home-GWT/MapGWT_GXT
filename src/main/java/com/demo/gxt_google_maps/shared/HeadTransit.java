@@ -9,7 +9,7 @@ public class HeadTransit {
     public HeadTransit(String time, String vehicleType){
         this.time = time;
         this.vehicleType = vehicleType;
-        nameVehicleType = vehicleType.substring(0, 1).toUpperCase() + vehicleType.substring(1); //nameVehicleType = vehicleType.toUpperCase();
+        nameVehicleType = vehicleType.substring(0, 1).toUpperCase() + vehicleType.substring(1); //vehicleType.toUpperCase();
     }
 
     public String getTime() {
