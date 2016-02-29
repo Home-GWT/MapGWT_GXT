@@ -1,9 +1,9 @@
 package com.demo.gxt_google_maps.client.view;
 
-import com.demo.gxt_google_maps.client.rpc.UtilDataTransit;
-import com.demo.gxt_google_maps.shared.Transit;
-import com.demo.gxt_google_maps.client.rpc.GWTServiceStub;
+import com.demo.gxt_google_maps.client.rpc.GWTService;
+import com.demo.gxt_google_maps.client.rpc.UtilStore;
 import com.demo.gxt_google_maps.shared.HeadTransit;
+import com.demo.gxt_google_maps.shared.Transit;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -23,49 +23,22 @@ import java.util.List;
 
 public class MenuWidget extends Grid<Transit> {
 
-	private static final GWTServiceStub                 service = GWT.create(GWTServiceStub.class);
+	private static final GWTService service = GWT.create(GWTService.class);
+
 	private static ColumnConfig<Transit, Boolean>       viewCol = new ColumnConfig<Transit, Boolean>(service.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
     private static ColumnConfig<Transit, Boolean>      foundCol = new ColumnConfig<Transit, Boolean>(service.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='Found' src='img/found.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
 	private static ColumnConfig<Transit, HeadTransit> objectCol = new ColumnConfig<Transit, HeadTransit>(service.object(), 230, SafeHtmlUtils.fromSafeConstant("<center>Объект</center>"));
     private static ColumnConfig<Transit, Integer>      phoneCol = new ColumnConfig<Transit, Integer>(service.speed(), 40, "км/ч");
     private static ColumnConfig<Transit, Boolean>       wifiCol = new ColumnConfig<Transit,Boolean>(service.wifi(),30, SafeHtmlUtils.fromSafeConstant("<img alt='Wi-Fi' src='img/wifi.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
-    static ContentPanel[] nowPanel = new ContentPanel[20], routesPanel = new ContentPanel[20], notificationsPanel = new ContentPanel[20];
-    static TabPanel[] tabPanel = new TabPanel[20];
-    static int counter = 0;
-
-    private static RowExpander<Transit> expanderRow = new RowExpander<Transit>(new AbstractCell<Transit>() {
+    private static RowExpander<Transit>             expanderRow = new RowExpander<Transit>(new AbstractCell<Transit>() {
         @Override
-        public void render(Context context, Transit value, SafeHtmlBuilder sb) {
-            nowPanel[counter] = new ContentPanel(); routesPanel[counter] = new ContentPanel(); notificationsPanel[counter] = new ContentPanel();
-            tabPanel[counter] = new TabPanel();
-
-            StringBuilder expanderStringBuilder = new StringBuilder();
-            expanderStringBuilder.append("<table class='underline'>");
-            expanderStringBuilder.append("<tr><td>Водитель:</td> <td><font color='blue'>"+value.getFirstName()+" "+value.getLastName()+"</font></td></tr>");
-            expanderStringBuilder.append("<tr><td>Время (позиция):</td> <td>"+value.getTimePosition()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Время (сервер):</td> <td>"+value.getTimeServer()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Высота:</td> <td>"+value.getHeight()+" м</td></tr>");
-            expanderStringBuilder.append("<tr><td>Модель:</td> <td>"+value.getModel()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Номер:</td> <td>"+value.getNumber()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Одометр:</td> <td>"+value.getDistance()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Позиция:</td> <td><a href='https://www.google.com.ua/maps/@50.3551709,30.3359953,8.75z' target='_blank' title='Показать на карте'>" +value.getPosition()+"</a></td></tr>");
-            expanderStringBuilder.append("<tr><td>Угол:</td> <td>"+value.getDegree()+"'</td></tr>");
-            expanderStringBuilder.append("</table>");
-            nowPanel[counter].add(new HTML(expanderStringBuilder.toString()));
-            routesPanel[counter].add(new HTML("none"));
-            notificationsPanel[counter].add(new HTML("none"));
-            nowPanel[counter].setHeaderVisible(false); routesPanel[counter].setHeaderVisible(false); notificationsPanel[counter].setHeaderVisible(false);
-            tabPanel[counter].add(nowPanel[counter], "Сейчас");
-            tabPanel[counter].add(routesPanel[counter], "Маршруты");
-            tabPanel[counter].add(notificationsPanel[counter], "Оповещения");
-            tabPanel[counter].setAutoSelect(true);
-            sb.appendHtmlConstant("" + tabPanel[counter]);
-            counter++;
+        public void render(Context context, Transit transit, SafeHtmlBuilder sb) {
+            sb.appendHtmlConstant("" + new ExpanderBuilder(transit));
         }
     });
 
     public MenuWidget() {
-        super(generateData(), createColumnModel());
+        super(loadData(), createColumns());
 
         this.setAllowTextSelection(true);
         this.getView().setStripeRows(true);
@@ -77,9 +50,14 @@ public class MenuWidget extends Grid<Transit> {
         expanderRow.initPlugin(this);
     }
 
-	private static ColumnModel<Transit> createColumnModel(){
-		List<ColumnConfig<Transit, ?>> columns = new ArrayList<ColumnConfig<Transit, ?>>();
+    private static ListStore<Transit> loadData(){
+        ListStore<Transit> store = new ListStore<Transit>(service.key());
+        store.addAll(UtilStore.loadData());
 
+        return store;
+    }
+
+	private static ColumnModel<Transit> createColumns(){
         viewCol.setCell(new AbstractCell<Boolean>() {
             @Override
             public void render(Context context, Boolean value, SafeHtmlBuilder sb) {
@@ -116,6 +94,7 @@ public class MenuWidget extends Grid<Transit> {
             }
         });
 
+        List<ColumnConfig<Transit, ?>> columns = new ArrayList<ColumnConfig<Transit, ?>>();
         expanderRow.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         viewCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         foundCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -131,10 +110,33 @@ public class MenuWidget extends Grid<Transit> {
 		return new ColumnModel<Transit>(columns);
 	}
 
-	private static ListStore<Transit> generateData(){
-		ListStore<Transit> store = new ListStore<Transit>(service.key());
-		store.addAll(UtilDataTransit.generateData());
+    static class ExpanderBuilder extends TabPanel {
+        public ExpanderBuilder(Transit transit){
+            StringBuilder expanderStringBuilder = new StringBuilder();
+            expanderStringBuilder.append("<table class='underline'>");
+            expanderStringBuilder.append("<tr><td>Водитель:</td> <td><font color='blue'>"+transit.getFirstName()+" "+transit.getLastName()+"</font></td></tr>");
+            expanderStringBuilder.append("<tr><td>Время (позиция):</td> <td>"+transit.getTimePosition()+"</td></tr>");
+            expanderStringBuilder.append("<tr><td>Время (сервер):</td> <td>"+transit.getTimeServer()+"</td></tr>");
+            expanderStringBuilder.append("<tr><td>Высота:</td> <td>"+transit.getHeight()+" м</td></tr>");
+            expanderStringBuilder.append("<tr><td>Модель:</td> <td>"+transit.getModel()+"</td></tr>");
+            expanderStringBuilder.append("<tr><td>Номер:</td> <td>"+transit.getNumber()+"</td></tr>");
+            expanderStringBuilder.append("<tr><td>Одометр:</td> <td>"+transit.getDistance()+"</td></tr>");
+            expanderStringBuilder.append("<tr><td>Позиция:</td> <td><a href='https://www.google.com.ua/maps/@50.3551709,30.3359953,8.75z' target='_blank' title='Показать на карте'>" +transit.getPosition()+"</a></td></tr>");
+            expanderStringBuilder.append("<tr><td>Угол:</td> <td>"+transit.getDegree()+"'</td></tr>");
+            expanderStringBuilder.append("</table>");
 
-		return store;
-	}
+            ContentPanel currentPanel = new ContentPanel();
+            ContentPanel routesPanel = new ContentPanel();
+            ContentPanel notificationsPanel = new ContentPanel();
+            currentPanel.add(new HTML(expanderStringBuilder.toString()));
+            routesPanel.add(new HTML("none"));
+            notificationsPanel.add(new HTML("none"));
+            currentPanel.setHeaderVisible(false); routesPanel.setHeaderVisible(false); notificationsPanel.setHeaderVisible(false);
+
+            add(currentPanel, "Сейчас");
+            add(routesPanel, "Маршруты");
+            add(notificationsPanel, "Оповещения");
+            setAutoSelect(true);
+        }
+    }
 }

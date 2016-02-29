@@ -5,10 +5,10 @@ import com.demo.gxt_google_maps.shared.Transit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UtilDataTransit {
+public class UtilStore {
     private static List<Transit> lData = null;
 
-	public static List<Transit> generateData(){
+	public static List<Transit> loadData(){
 		if(lData == null) {
             lData = new ArrayList<Transit>();
             lData.add(new Transit(1, "Loiane", "1234-5678", "loiane@email.com", "Loiane", "Hadson", "2016-02-20 11:50:23", "2016-02-20 11:49:11", "2016-02-20 11:47:44", 45, 107, "Honda NSX", "NSX123", 423511, "53.587648', -2.558620'", 148, "bus", true));
