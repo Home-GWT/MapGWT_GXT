@@ -1,9 +1,9 @@
 package com.demo.gxt_google_maps.client.view;
 
+import com.demo.gxt_google_maps.client.view2.util.ContactTestData;
 import com.demo.gxt_google_maps.shared.Contact;
 import com.demo.gxt_google_maps.shared.ContactProperties;
 import com.demo.gxt_google_maps.shared.MyObject;
-//import com.demo.gxt_google_maps.client.view2.util.ContactTestData;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -21,6 +21,8 @@ import com.sencha.gxt.widget.core.client.grid.RowExpander;
 import java.util.ArrayList;
 import java.util.List;
 
+//import com.demo.gxt_google_maps.client.view2.util.ContactTestData;
+
 public class LeftMenuWidget extends Grid<Contact> {
 	private static final ContactProperties props = GWT.create(ContactProperties.class);
 //    private static final String[]                  COLORS = {"82a700"};
@@ -37,7 +39,7 @@ public class LeftMenuWidget extends Grid<Contact> {
     static int counter = 0;
 
     public LeftMenuWidget() {
-        super(store, createColumnModel()); //super(generateData(), createColumnModel());
+        super(generateData(), createColumnModel());
 
         this.setAllowTextSelection(true);
         this.getView().setStripeRows(true);
@@ -195,14 +197,10 @@ public class LeftMenuWidget extends Grid<Contact> {
 		return new ColumnModel<Contact>(columnConfigList);
 	}
 
-    private static ListStore<Contact> store = new ListStore<Contact>(props.key());
-//	private static ListStore<Contact> generateData(){
-//		ListStore<Contact> store = new ListStore<Contact>(props.key());
-//		store.addAll(ContactTestData.generateData());
-//
-//		return store;
-//	}
-    public static void setStore(List<Contact> thatStore){
-        store.addAll(thatStore);
-    }
+	private static ListStore<Contact> generateData(){
+		ListStore<Contact> store = new ListStore<Contact>(props.key());
+		store.addAll(ContactTestData.generateData());
+
+		return store;
+	}
 }

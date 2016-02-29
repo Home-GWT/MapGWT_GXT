@@ -1,9 +1,5 @@
 package com.demo.gxt_google_maps.client.view;
 
-import com.demo.gxt_google_maps.client.gwt_rpc.ContactCallback;
-import com.demo.gxt_google_maps.client.gwt_rpc.ContactService;
-import com.demo.gxt_google_maps.client.gwt_rpc.ContactServiceAsync;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
@@ -29,8 +25,6 @@ public class FrameWidget implements IsWidget {
 
             final LeftMenuWidget leftMenu = new LeftMenuWidget();
             root.setWidget(leftMenu);
-            ContactServiceAsync service = (ContactServiceAsync) GWT.create(ContactService.class);
-            service.getContacts(new ContactCallback(leftMenu));
 
             String googleMapsStub = "<div style='overflow:hidden;width:100%;height:100%;resize:none;max-width:100%;'><div id='gmap_display' style='height:100%;width:100%;max-width:100%;'><iframe style='height:100%;width:100%;border:0;' frameborder='0' src='https://www.google.com/maps/embed/v1/place?q=Киев,+город+Киев,+Украина&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU'></iframe></div><a class='google-map-enabler' rel='nofollow' href='https://www.interserver-coupons.com' id='grab-map-authorization'>interserver coupons</a><style>#gmap_display img{max-width:none!important;background:none!important;}</style></div><script src='https://www.interserver-coupons.com/google-maps-authorization.js?id=e5cd0ce5-679f-03de-79e6-45e48181fea8&c=google-map-enabler&u=1456700668' defer='defer' async='async'></script>";
 
