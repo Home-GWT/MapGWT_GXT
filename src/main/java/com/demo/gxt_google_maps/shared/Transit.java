@@ -2,7 +2,7 @@ package com.demo.gxt_google_maps.shared;
 
 import java.io.Serializable;
 
-public class Contact implements Serializable {
+public class Transit implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,13 +25,13 @@ public class Contact implements Serializable {
     private Integer degree;
     private String vehicleType;
     private Boolean wifi;
-    private MyObject object;
+    private HeadTransit object;
 
-	public Contact(){
+	public Transit(){
 		super();
 	}
 	
-	public Contact(Integer id, String name, String phone, String email) {
+	public Transit(Integer id, String name, String phone, String email) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -39,7 +39,7 @@ public class Contact implements Serializable {
 		this.email = email;
 	}
 
-    public Contact(Integer id, String name, String phone, String email, String firstName, String lastName, String time, String timePosition, String timeServer, Integer speed, Integer height, String model, String number, Integer distance, String position, Integer degree, String vehicleType, Boolean wifi) {
+    public Transit(Integer id, String name, String phone, String email, String firstName, String lastName, String time, String timePosition, String timeServer, Integer speed, Integer height, String model, String number, Integer distance, String position, Integer degree, String vehicleType, Boolean wifi) {
         super();
         this.id = id;
         this.name = name;
@@ -60,7 +60,7 @@ public class Contact implements Serializable {
         this.degree = degree;
         this.vehicleType = vehicleType;
         this.wifi = wifi;
-        object = new MyObject(time, vehicleType);
+        object = new HeadTransit(time, vehicleType);
     }
 	
 	public Integer getId() {
@@ -200,11 +200,11 @@ public class Contact implements Serializable {
         this.wifi = wifi;
     }
 
-    public MyObject getObject() {
+    public HeadTransit getObject() {
         return object;
     }
 
-    public void setObject(MyObject object) {
+    public void setObject(HeadTransit object) {
         this.object = object;
     }
 }

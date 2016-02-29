@@ -1,9 +1,9 @@
 package com.demo.gxt_google_maps.client.view;
 
-import com.demo.gxt_google_maps.client.rpc.ContactTestData;
-import com.demo.gxt_google_maps.shared.Contact;
-import com.demo.gxt_google_maps.client.rpc.ContactProperties;
-import com.demo.gxt_google_maps.shared.MyObject;
+import com.demo.gxt_google_maps.client.rpc.TransitData;
+import com.demo.gxt_google_maps.shared.Transit;
+import com.demo.gxt_google_maps.client.rpc.GWTService;
+import com.demo.gxt_google_maps.shared.HeadTransit;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -23,14 +23,14 @@ import java.util.List;
 
 //import com.demo.gxt_google_maps.client.rpc.ContactTestData;
 
-public class LeftMenuWidget extends Grid<Contact> {
-	private static final ContactProperties props = GWT.create(ContactProperties.class);
+public class LeftMenuWidget extends Grid<Transit> {
+	private static final GWTService props = GWT.create(GWTService.class);
 //    private static final String[]                  COLORS = {"82a700"};
-	private static ColumnConfig<Contact, Boolean>    viewCol = new ColumnConfig<Contact, Boolean>(props.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='23' style='margin-top:-4px; margin-left:-1px;' />"));
-    private static ColumnConfig<Contact, Boolean>   foundCol = new ColumnConfig<Contact, Boolean>(props.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='Found' src='img/found.png' width='23' style='margin-top:-4px; margin-left:-1px;' />"));
-	private static ColumnConfig<Contact, MyObject> objectCol = new ColumnConfig<Contact, MyObject>(props.object(), 230, SafeHtmlUtils.fromSafeConstant("<center>Объект</center>"));
-    private static ColumnConfig<Contact, Integer>   phoneCol = new ColumnConfig<Contact, Integer>(props.speed(), 40, "км/ч");
-    private static ColumnConfig<Contact, Boolean>    wifiCol = new ColumnConfig<Contact,Boolean>(props.wifi(),30, SafeHtmlUtils.fromSafeConstant("<img alt='Wi-Fi' src='img/wifi.png' width='23' style='margin-top:-4px; margin-left:-1px;' />"));
+	private static ColumnConfig<Transit, Boolean>    viewCol = new ColumnConfig<Transit, Boolean>(props.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='23' style='margin-top:-4px; margin-left:-1px;' />"));
+    private static ColumnConfig<Transit, Boolean>   foundCol = new ColumnConfig<Transit, Boolean>(props.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='Found' src='img/found.png' width='23' style='margin-top:-4px; margin-left:-1px;' />"));
+	private static ColumnConfig<Transit, HeadTransit> objectCol = new ColumnConfig<Transit, HeadTransit>(props.object(), 230, SafeHtmlUtils.fromSafeConstant("<center>Объект</center>"));
+    private static ColumnConfig<Transit, Integer>   phoneCol = new ColumnConfig<Transit, Integer>(props.speed(), 40, "км/ч");
+    private static ColumnConfig<Transit, Boolean>    wifiCol = new ColumnConfig<Transit,Boolean>(props.wifi(),30, SafeHtmlUtils.fromSafeConstant("<img alt='Wi-Fi' src='img/wifi.png' width='23' style='margin-top:-4px; margin-left:-1px;' />"));
 //    private static ColumnConfig<Contact, String> colorCol = new ColumnConfig<Contact, String>(props.name(), 25, "Name");
 //    private static ColumnConfig<Contact, String> colorCol2 = new ColumnConfig<Contact, String>(props.name(), 25, "Name");
 
@@ -51,9 +51,9 @@ public class LeftMenuWidget extends Grid<Contact> {
         rowExpander.initPlugin(this);
     }
 
-    private static RowExpander<Contact> rowExpander = new RowExpander<Contact>(new AbstractCell<Contact>() {
+    private static RowExpander<Transit> rowExpander = new RowExpander<Transit>(new AbstractCell<Transit>() {
         @Override
-        public void render(Context context, Contact value, SafeHtmlBuilder sb) {
+        public void render(Context context, Transit value, SafeHtmlBuilder sb) {
 //            ContentPanel nowPanel = new ContentPanel(), routesPanel = new ContentPanel(), notificationsPanel = new ContentPanel();
 //            TabPanel tabPanel = new TabPanel();
             nowPanel[counter] = new ContentPanel(); routesPanel[counter] = new ContentPanel(); notificationsPanel[counter] = new ContentPanel();
@@ -85,8 +85,8 @@ public class LeftMenuWidget extends Grid<Contact> {
         }
     });
 
-	private static ColumnModel<Contact> createColumnModel(){
-		List<ColumnConfig<Contact, ?>> columnConfigList = new ArrayList<ColumnConfig<Contact, ?>>();
+	private static ColumnModel<Transit> createColumnModel(){
+		List<ColumnConfig<Transit, ?>> columnConfigList = new ArrayList<ColumnConfig<Transit, ?>>();
 
         viewCol.setCell(new AbstractCell<Boolean>() {
             @Override
@@ -104,9 +104,9 @@ public class LeftMenuWidget extends Grid<Contact> {
                 }
             }
         });
-        objectCol.setCell(new AbstractCell<MyObject>() {
+        objectCol.setCell(new AbstractCell<HeadTransit>() {
             @Override
-            public void render(Context context, MyObject value, SafeHtmlBuilder sb) {
+            public void render(Context context, HeadTransit value, SafeHtmlBuilder sb) {
                 sb.appendHtmlConstant("<table cellspacing='3' cellpadding='0' border='0'>");
                 sb.appendHtmlConstant("<tr><td rowspan='2'><img alt='"+value.getVehicleType()+"' src='img/"+value.getVehicleType()+".png' width='30'/></td><td><font color='blue'><b>"+value.getNameVehicleType()+"</b></font></td></tr>");
                 sb.appendHtmlConstant("<tr><td>"+value.getTime()+"</td></tr>");
@@ -194,12 +194,12 @@ public class LeftMenuWidget extends Grid<Contact> {
 //        columnConfigList.add(colorCol);
 //        columnConfigList.add(colorCol2);
 
-		return new ColumnModel<Contact>(columnConfigList);
+		return new ColumnModel<Transit>(columnConfigList);
 	}
 
-	private static ListStore<Contact> generateData(){
-		ListStore<Contact> store = new ListStore<Contact>(props.key());
-		store.addAll(ContactTestData.generateData());
+	private static ListStore<Transit> generateData(){
+		ListStore<Transit> store = new ListStore<Transit>(props.key());
+		store.addAll(TransitData.generateData());
 
 		return store;
 	}
