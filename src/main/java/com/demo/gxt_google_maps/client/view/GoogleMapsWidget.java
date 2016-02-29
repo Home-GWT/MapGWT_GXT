@@ -17,7 +17,6 @@ public class GoogleMapsWidget implements IsWidget {
         if (container == null) {
             container = new SimpleContainer();
 
-            // register Google maps api callback when the Javascript is loaded, it will call this function
             createJsniCallbackFunction(new MapsHandler() {
                 @Override
                 public void mapsInitialized() {
@@ -25,10 +24,8 @@ public class GoogleMapsWidget implements IsWidget {
                 }
             });
 
-            // load the Javascript maps api, which will call the function mapsInitialized
             loadMaps();
         }
-
         return container;
     }
 

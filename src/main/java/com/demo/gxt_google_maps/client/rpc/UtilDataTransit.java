@@ -5,8 +5,8 @@ import com.demo.gxt_google_maps.shared.Transit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UtilTransit {
-    private static List<Transit> lData;
+public class UtilDataTransit {
+    private static List<Transit> lData = null;
 
 	public static List<Transit> generateData(){
 		if(lData == null) {

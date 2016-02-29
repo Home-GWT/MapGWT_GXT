@@ -1,6 +1,6 @@
 package com.demo.gxt_google_maps.client.view;
 
-import com.demo.gxt_google_maps.client.rpc.UtilTransit;
+import com.demo.gxt_google_maps.client.rpc.UtilDataTransit;
 import com.demo.gxt_google_maps.shared.Transit;
 import com.demo.gxt_google_maps.client.rpc.GWTService;
 import com.demo.gxt_google_maps.shared.HeadTransit;
@@ -23,7 +23,7 @@ import java.util.List;
 
 //import com.demo.gxt_google_maps.client.rpc.ContactTestData;
 
-public class LeftMenuWidget extends Grid<Transit> {
+public class MenuWidget extends Grid<Transit> {
 	private static final GWTService props = GWT.create(GWTService.class);
 //    private static final String[]                  COLORS = {"82a700"};
 	private static ColumnConfig<Transit, Boolean>    viewCol = new ColumnConfig<Transit, Boolean>(props.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='23' style='margin-top:-4px; margin-left:-1px;' />"));
@@ -38,7 +38,7 @@ public class LeftMenuWidget extends Grid<Transit> {
     static TabPanel[] tabPanel = new TabPanel[20];
     static int counter = 0;
 
-    public LeftMenuWidget() {
+    public MenuWidget() {
         super(generateData(), createColumnModel());
 
         this.setAllowTextSelection(true);
@@ -199,7 +199,7 @@ public class LeftMenuWidget extends Grid<Transit> {
 
 	private static ListStore<Transit> generateData(){
 		ListStore<Transit> store = new ListStore<Transit>(props.key());
-		store.addAll(UtilTransit.generateData());
+		store.addAll(UtilDataTransit.generateData());
 
 		return store;
 	}
