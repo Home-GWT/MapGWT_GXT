@@ -2,7 +2,7 @@ package com.demo.gxt_google_maps.client.view;
 
 import com.demo.gxt_google_maps.client.rpc.UtilDataTransit;
 import com.demo.gxt_google_maps.shared.Transit;
-import com.demo.gxt_google_maps.client.rpc.GWTService;
+import com.demo.gxt_google_maps.client.rpc.GWTServiceStub;
 import com.demo.gxt_google_maps.shared.HeadTransit;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
@@ -21,46 +21,25 @@ import com.sencha.gxt.widget.core.client.grid.RowExpander;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.demo.gxt_google_maps.client.rpc.ContactTestData;
-
 public class MenuWidget extends Grid<Transit> {
-	private static final GWTService props = GWT.create(GWTService.class);
-//    private static final String[]                  COLORS = {"82a700"};
-	private static ColumnConfig<Transit, Boolean>    viewCol = new ColumnConfig<Transit, Boolean>(props.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='23' style='margin-top:-4px; margin-left:-1px;' />"));
-    private static ColumnConfig<Transit, Boolean>   foundCol = new ColumnConfig<Transit, Boolean>(props.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='Found' src='img/found.png' width='23' style='margin-top:-4px; margin-left:-1px;' />"));
-	private static ColumnConfig<Transit, HeadTransit> objectCol = new ColumnConfig<Transit, HeadTransit>(props.object(), 230, SafeHtmlUtils.fromSafeConstant("<center>Объект</center>"));
-    private static ColumnConfig<Transit, Integer>   phoneCol = new ColumnConfig<Transit, Integer>(props.speed(), 40, "км/ч");
-    private static ColumnConfig<Transit, Boolean>    wifiCol = new ColumnConfig<Transit,Boolean>(props.wifi(),30, SafeHtmlUtils.fromSafeConstant("<img alt='Wi-Fi' src='img/wifi.png' width='23' style='margin-top:-4px; margin-left:-1px;' />"));
-//    private static ColumnConfig<Contact, String> colorCol = new ColumnConfig<Contact, String>(props.name(), 25, "Name");
-//    private static ColumnConfig<Contact, String> colorCol2 = new ColumnConfig<Contact, String>(props.name(), 25, "Name");
 
+	private static final GWTServiceStub                 service = GWT.create(GWTServiceStub.class);
+	private static ColumnConfig<Transit, Boolean>       viewCol = new ColumnConfig<Transit, Boolean>(service.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
+    private static ColumnConfig<Transit, Boolean>      foundCol = new ColumnConfig<Transit, Boolean>(service.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='Found' src='img/found.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
+	private static ColumnConfig<Transit, HeadTransit> objectCol = new ColumnConfig<Transit, HeadTransit>(service.object(), 230, SafeHtmlUtils.fromSafeConstant("<center>Объект</center>"));
+    private static ColumnConfig<Transit, Integer>      phoneCol = new ColumnConfig<Transit, Integer>(service.speed(), 40, "км/ч");
+    private static ColumnConfig<Transit, Boolean>       wifiCol = new ColumnConfig<Transit,Boolean>(service.wifi(),30, SafeHtmlUtils.fromSafeConstant("<img alt='Wi-Fi' src='img/wifi.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
     static ContentPanel[] nowPanel = new ContentPanel[20], routesPanel = new ContentPanel[20], notificationsPanel = new ContentPanel[20];
     static TabPanel[] tabPanel = new TabPanel[20];
     static int counter = 0;
 
-    public MenuWidget() {
-        super(generateData(), createColumnModel());
-
-        this.setAllowTextSelection(true);
-        this.getView().setStripeRows(true);
-        this.getView().setColumnLines(true);
-        this.getView().setAutoExpandColumn(objectCol);
-        this.setBorders(false);
-        this.setColumnReordering(true);
-        this.setStateful(false);
-        rowExpander.initPlugin(this);
-    }
-
-    private static RowExpander<Transit> rowExpander = new RowExpander<Transit>(new AbstractCell<Transit>() {
+    private static RowExpander<Transit> expanderRow = new RowExpander<Transit>(new AbstractCell<Transit>() {
         @Override
         public void render(Context context, Transit value, SafeHtmlBuilder sb) {
-//            ContentPanel nowPanel = new ContentPanel(), routesPanel = new ContentPanel(), notificationsPanel = new ContentPanel();
-//            TabPanel tabPanel = new TabPanel();
             nowPanel[counter] = new ContentPanel(); routesPanel[counter] = new ContentPanel(); notificationsPanel[counter] = new ContentPanel();
             tabPanel[counter] = new TabPanel();
 
             StringBuilder expanderStringBuilder = new StringBuilder();
-//            expanderStringBuilder.append("<style type='text/css'>table.underline {border-spacing:0;width:340px;} table.underline td:first-child{width:100px;padding-left:7px;} table.underline td:last-child{width:240px;} table.underline td {border-bottom:1px solid #ddd;height:20px;} table.underline tr:last-child td {border-bottom:none;}</style>");
             expanderStringBuilder.append("<table class='underline'>");
             expanderStringBuilder.append("<tr><td>Водитель:</td> <td><font color='blue'>"+value.getFirstName()+" "+value.getLastName()+"</font></td></tr>");
             expanderStringBuilder.append("<tr><td>Время (позиция):</td> <td>"+value.getTimePosition()+"</td></tr>");
@@ -85,8 +64,21 @@ public class MenuWidget extends Grid<Transit> {
         }
     });
 
+    public MenuWidget() {
+        super(generateData(), createColumnModel());
+
+        this.setAllowTextSelection(true);
+        this.getView().setStripeRows(true);
+        this.getView().setColumnLines(true);
+        this.getView().setAutoExpandColumn(objectCol);
+        this.setBorders(false);
+        this.setColumnReordering(true);
+        this.setStateful(false);
+        expanderRow.initPlugin(this);
+    }
+
 	private static ColumnModel<Transit> createColumnModel(){
-		List<ColumnConfig<Transit, ?>> columnConfigList = new ArrayList<ColumnConfig<Transit, ?>>();
+		List<ColumnConfig<Transit, ?>> columns = new ArrayList<ColumnConfig<Transit, ?>>();
 
         viewCol.setCell(new AbstractCell<Boolean>() {
             @Override
@@ -123,82 +115,24 @@ public class MenuWidget extends Grid<Transit> {
                 }
             }
         });
-        //////////////////////////////////////////////////////////
-//        IdentityValueProvider<Contact> identityView = new IdentityValueProvider<Contact>(), identityFound = new IdentityValueProvider<Contact>();
-//        CheckBoxSelectionModel<Contact> view = new CheckBoxSelectionModel<Contact>(identityView) {
-//            @Override
-//            protected void onRefresh(RefreshEvent event) {
-//                if (isSelectAllChecked()) {
-//                    selectAll();
-//                }
-//                super.onRefresh(event);
-//            }
-//        };
-//        CheckBoxSelectionModel<Contact> found = new CheckBoxSelectionModel<Contact>(identityFound) {
-//            @Override
-//            protected void onRefresh(RefreshEvent event) {
-//                if (isSelectAllChecked()) {
-//                    selectAll();
-//                }
-//                super.onRefresh(event);
-//            }
-//        };
-//        ColorPaletteBaseAppearance appearance = GWT.create(ColorPaletteCell.ColorPaletteAppearance.class);
-//        appearance.setColumnCount(1);
-//        ColorPaletteCell colorPalette = new ColorPaletteCell(appearance, COLORS, COLORS) {
-//            @Override
-//            public boolean handlesSelection() {
-//                return true;
-//            }
-//        };
-//        colorCol.setCell(colorPalette);
-//        //////////////////////////////////////////////////////////
-//        ImageCell ic = new ImageCell() {
-//            @Override
-//            public void render(Context context, String value, SafeHtmlBuilder sb) {
-//                sb.appendHtmlConstant("<div class=\"myClickableCellTestStyle\" style='cursor: pointer'/>");
-//                sb.appendHtmlConstant("<img src='img/wifi-enable.jpg' style='cursor: pointer'/> ");
-//                sb.append(SafeHtmlUtils.fromTrustedString(value));
-//                sb.appendHtmlConstant("</div>");
-//            }
-//        };
-//        colorCol2.setCell(ic);
 
-        rowExpander.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//        rowExpander.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//        rowExpander.setColumnStyle(SafeStylesUtils.fromTrustedString("height: 37px;")); //rowExpander.setColumnStyle(SafeStylesUtils.fromTrustedString("background-color: blue; color: yellow;"));
-//        rowExpander.setHeader(SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='23' style='margin-top:-4px; margin-left:-8px;' />"));
-//        rowExpander.setColumnStyle(SafeStylesUtils.fromTrustedString("margin-top:10px;"));
+        expanderRow.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         viewCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//        viewCol.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//        viewCol.setColumnStyle(SafeStylesUtils.fromTrustedString("height: 37px;"));
         foundCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//        foundCol.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//        foundCol.setColumnStyle(SafeStylesUtils.fromTrustedString("height: 37px;"));
-//        objectCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//        objectCol.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//        objectCol.setColumnStyle(SafeStylesUtils.fromTrustedString("height: 37px;"));
         phoneCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//        phoneCol.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//        phoneCol.setColumnStyle(SafeStylesUtils.fromTrustedString("height: 37px;"));
         wifiCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//        wifiCol.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//        wifiCol.setColumnStyle(SafeStylesUtils.fromTrustedString("height: 37px;"));
 
-        columnConfigList.add(rowExpander);
-        columnConfigList.add(viewCol); //columnConfigList.add(view.getColumn());
-        columnConfigList.add(foundCol); //columnConfigList.add(found.getColumn());
-		columnConfigList.add(objectCol);
-        columnConfigList.add(phoneCol);
-        columnConfigList.add(wifiCol);
-//        columnConfigList.add(colorCol);
-//        columnConfigList.add(colorCol2);
-
-		return new ColumnModel<Transit>(columnConfigList);
+        columns.add(expanderRow);
+        columns.add(viewCol);
+        columns.add(foundCol);
+        columns.add(objectCol);
+        columns.add(phoneCol);
+        columns.add(wifiCol);
+		return new ColumnModel<Transit>(columns);
 	}
 
 	private static ListStore<Transit> generateData(){
-		ListStore<Transit> store = new ListStore<Transit>(props.key());
+		ListStore<Transit> store = new ListStore<Transit>(service.key());
 		store.addAll(UtilDataTransit.generateData());
 
 		return store;

@@ -7,7 +7,7 @@ import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
 
-public interface GWTService extends PropertyAccess<Transit> {
+public interface GWTServiceStub extends PropertyAccess<Transit> {
 	@Path("id")
 	ModelKeyProvider<Transit> key();
 
