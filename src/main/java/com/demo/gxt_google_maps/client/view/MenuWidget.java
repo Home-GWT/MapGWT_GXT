@@ -1,11 +1,12 @@
 package com.demo.gxt_google_maps.client.view;
 
 import com.demo.gxt_google_maps.client.rpc.GWTService;
-import com.demo.gxt_google_maps.client.rpc.UtilStore;
-import com.demo.gxt_google_maps.shared.HeadTransit;
+import com.demo.gxt_google_maps.client.rpc.StoreUtil;
+import com.demo.gxt_google_maps.shared.TitleTransit;
 import com.demo.gxt_google_maps.shared.Transit;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.HTML;
@@ -25,9 +26,10 @@ public class MenuWidget extends Grid<Transit> {
 
 	private static final GWTService service = GWT.create(GWTService.class);
 
-	private static ColumnConfig<Transit, Boolean>       viewCol = new ColumnConfig<Transit, Boolean>(service.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
-    private static ColumnConfig<Transit, Boolean>      foundCol = new ColumnConfig<Transit, Boolean>(service.wifi(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='Found' src='img/found.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
-	private static ColumnConfig<Transit, HeadTransit> objectCol = new ColumnConfig<Transit, HeadTransit>(service.object(), 230, SafeHtmlUtils.fromSafeConstant("<center>Объект</center>"));
+    public static final DateTimeFormat                       df = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss");
+	private static ColumnConfig<Transit, Boolean>       viewCol = new ColumnConfig<Transit, Boolean>(service.checked1(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
+    private static ColumnConfig<Transit, Boolean>      foundCol = new ColumnConfig<Transit, Boolean>(service.checked2(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='Found' src='img/found.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
+	private static ColumnConfig<Transit, TitleTransit> objectCol = new ColumnConfig<Transit, TitleTransit>(service.title(), 230, SafeHtmlUtils.fromSafeConstant("<center>Объект</center>"));
     private static ColumnConfig<Transit, Integer>      phoneCol = new ColumnConfig<Transit, Integer>(service.speed(), 40, "км/ч");
     private static ColumnConfig<Transit, Boolean>       wifiCol = new ColumnConfig<Transit,Boolean>(service.wifi(),30, SafeHtmlUtils.fromSafeConstant("<img alt='Wi-Fi' src='img/wifi.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
     private static RowExpander<Transit>             expanderRow = new RowExpander<Transit>(new AbstractCell<Transit>() {
@@ -52,7 +54,7 @@ public class MenuWidget extends Grid<Transit> {
 
     private static ListStore<Transit> loadData(){
         ListStore<Transit> store = new ListStore<Transit>(service.key());
-        store.addAll(UtilStore.loadData());
+        store.addAll(StoreUtil.getData());
 
         return store;
     }
@@ -61,25 +63,29 @@ public class MenuWidget extends Grid<Transit> {
         viewCol.setCell(new AbstractCell<Boolean>() {
             @Override
             public void render(Context context, Boolean value, SafeHtmlBuilder sb) {
-                sb.appendHtmlConstant("<input type='checkbox' checked></input>");
+                if(value){
+                    sb.appendHtmlConstant("<input name='checked1' id='checked1' type='checkbox' checked></input>");
+                } else {
+                    sb.appendHtmlConstant("<input name='checked1' id='checked1' type='checkbox'></input>");
+                }
             }
         });
         foundCol.setCell(new AbstractCell<Boolean>() {
             @Override
             public void render(Context context, Boolean value, SafeHtmlBuilder sb) {
-                if(!value){
-                    sb.appendHtmlConstant("<input type='checkbox' checked></input>");
+                if(value){
+                    sb.appendHtmlConstant("<input name='checked2' id='checked2' type='checkbox' checked></input>");
                 } else {
-                    sb.appendHtmlConstant("<input type='checkbox'></input>");
+                    sb.appendHtmlConstant("<input name='checked2' id='checked2' type='checkbox'></input>");
                 }
             }
         });
-        objectCol.setCell(new AbstractCell<HeadTransit>() {
+        objectCol.setCell(new AbstractCell<TitleTransit>() {
             @Override
-            public void render(Context context, HeadTransit value, SafeHtmlBuilder sb) {
+            public void render(Context context, TitleTransit title, SafeHtmlBuilder sb) {
                 sb.appendHtmlConstant("<table cellspacing='3' cellpadding='0' border='0'>");
-                sb.appendHtmlConstant("<tr><td rowspan='2'><img alt='"+value.getVehicleType()+"' src='img/"+value.getVehicleType()+".png' width='30'/></td><td><font color='blue'><b>"+value.getNameVehicleType()+"</b></font></td></tr>");
-                sb.appendHtmlConstant("<tr><td>"+value.getTime()+"</td></tr>");
+                sb.appendHtmlConstant("<tr><td rowspan='2'><img alt='"+title.getVehicleType()+"' src='img/"+title.getVehicleType()+".png' width='30'/></td><td><font color='blue'><b>"+title.getNameVehicleType()+"</b></font></td></tr>");
+                sb.appendHtmlConstant("<tr><td>"+df.format(title.getTime())+"</td></tr>");
                 sb.appendHtmlConstant("</table>");
             }
         });
@@ -115,13 +121,13 @@ public class MenuWidget extends Grid<Transit> {
             StringBuilder expanderStringBuilder = new StringBuilder();
             expanderStringBuilder.append("<table class='underline'>");
             expanderStringBuilder.append("<tr><td>Водитель:</td> <td><font color='blue'>"+transit.getFirstName()+" "+transit.getLastName()+"</font></td></tr>");
-            expanderStringBuilder.append("<tr><td>Время (позиция):</td> <td>"+transit.getTimePosition()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Время (сервер):</td> <td>"+transit.getTimeServer()+"</td></tr>");
+            expanderStringBuilder.append("<tr><td>Время (позиция):</td> <td>"+df.format(transit.getTimePosition())+"</td></tr>");
+            expanderStringBuilder.append("<tr><td>Время (сервер):</td> <td>"+df.format(transit.getTimeServer())+"</td></tr>");
             expanderStringBuilder.append("<tr><td>Высота:</td> <td>"+transit.getHeight()+" м</td></tr>");
             expanderStringBuilder.append("<tr><td>Модель:</td> <td>"+transit.getModel()+"</td></tr>");
             expanderStringBuilder.append("<tr><td>Номер:</td> <td>"+transit.getNumber()+"</td></tr>");
             expanderStringBuilder.append("<tr><td>Одометр:</td> <td>"+transit.getDistance()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Позиция:</td> <td><a href='https://www.google.com.ua/maps/@50.3551709,30.3359953,8.75z' target='_blank' title='Показать на карте'>" +transit.getPosition()+"</a></td></tr>");
+            expanderStringBuilder.append("<tr><td>Позиция:</td> <td><a href='https://www.google.com.ua/maps/@"+transit.getPosition().getLatitude()+","+transit.getPosition().getLongitude()+",8.75z' target='_blank' title='Показать на карте'>" +transit.getPosition().getLatitude()+"', "+transit.getPosition().getLongitude() +"'</a></td></tr>");
             expanderStringBuilder.append("<tr><td>Угол:</td> <td>"+transit.getDegree()+"'</td></tr>");
             expanderStringBuilder.append("</table>");
 

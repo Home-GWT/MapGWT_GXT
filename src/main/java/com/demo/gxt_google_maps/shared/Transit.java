@@ -1,6 +1,7 @@
 package com.demo.gxt_google_maps.shared;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Transit implements Serializable {
 
@@ -9,22 +10,24 @@ public class Transit implements Serializable {
 	private Integer id;
     private String firstName;
     private String lastName;
-    private String time;
-    private String timePosition;
-    private String timeServer;
+    private Date time;
+    private Date timePosition;
+    private Date timeServer;
     private Integer speed;
     private Integer height;
     private String model;
     private String number;
     private Integer distance;
-    private String position;
+    private PositionTransit position;
     private Integer degree;
-    private String vehicleType;
+    private VehicleTypeTransit vehicleType;
     private Boolean wifi;
-    private HeadTransit object;
+    private Boolean checked1;
+    private Boolean checked2;
+    private TitleTransit title;
 
     public Transit(){}
-    public Transit(Integer id, String name, String phone, String email, String firstName, String lastName, String time, String timePosition, String timeServer, Integer speed, Integer height, String model, String number, Integer distance, String position, Integer degree, String vehicleType, Boolean wifi) {
+    public Transit(Integer id, String firstName, String lastName, Date time, Date timePosition, Date timeServer, Integer speed, Integer height, String model, String number, Integer distance, PositionTransit position, Integer degree, Boolean wifi, Boolean checked1, Boolean checked2, VehicleTypeTransit vehicleType) {
         super();
 
         this.id = id;
@@ -40,9 +43,11 @@ public class Transit implements Serializable {
         this.distance = distance;
         this.position = position;
         this.degree = degree;
-        this.vehicleType = vehicleType;
         this.wifi = wifi;
-        object = new HeadTransit(time, vehicleType);
+        this.checked1 = checked1;
+        this.checked2 = checked2;
+        this.vehicleType = vehicleType;
+        title = new TitleTransit(time, vehicleType);
     }
 	
 	public Integer getId() {
@@ -69,27 +74,27 @@ public class Transit implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
-    public String getTimePosition() {
+    public Date getTimePosition() {
         return timePosition;
     }
 
-    public void setTimePosition(String timePosition) {
+    public void setTimePosition(Date timePosition) {
         this.timePosition = timePosition;
     }
 
-    public String getTimeServer() {
+    public Date getTimeServer() {
         return timeServer;
     }
 
-    public void setTimeServer(String timeServer) {
+    public void setTimeServer(Date timeServer) {
         this.timeServer = timeServer;
     }
 
@@ -133,11 +138,11 @@ public class Transit implements Serializable {
         this.distance = distance;
     }
 
-    public String getPosition() {
+    public PositionTransit getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(String Position) {
         this.position = position;
     }
 
@@ -149,11 +154,11 @@ public class Transit implements Serializable {
         this.degree = degree;
     }
 
-    public String getVehicleType() {
+    public VehicleTypeTransit getVehicleType() {
         return vehicleType;
     }
 
-    public void setVehicleType(String vehicleType) {
+    public void setVehicleType(VehicleTypeTransit vehicleType) {
         this.vehicleType = vehicleType;
     }
 
@@ -165,11 +170,27 @@ public class Transit implements Serializable {
         this.wifi = wifi;
     }
 
-    public HeadTransit getObject() {
-        return object;
+    public Boolean getChecked1() {
+        return checked1;
     }
 
-    public void setObject(HeadTransit object) {
-        this.object = object;
+    public void setChecked1(Boolean checked1) {
+        this.checked1 = checked1;
+    }
+
+    public Boolean getChecked2() {
+        return checked2;
+    }
+
+    public void setChecked2(Boolean checked2) {
+        this.checked2 = checked2;
+    }
+
+    public TitleTransit getTitle() {
+        return title;
+    }
+
+    public void setTitle(TitleTransit title) {
+        this.title = title;
     }
 }

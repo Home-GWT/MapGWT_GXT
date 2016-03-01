@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer.HorizontalLayoutData;
+import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 
 public class FrameWidget implements IsWidget {
     private ContentPanel panel;
@@ -14,7 +15,7 @@ public class FrameWidget implements IsWidget {
     public Widget asWidget() {
         if (panel == null) {
             ContentPanel leftPanel = new ContentPanel();
-            leftPanel.setHeadingText("Меню");
+            leftPanel.setHeaderVisible(false);
             leftPanel.setPixelSize(340, 640);
             leftPanel.setWidget(new MenuWidget());
 
@@ -22,12 +23,16 @@ public class FrameWidget implements IsWidget {
             HTML         googleMapsStub = new HTML(strGoogleMapsStub);
             GoogleMapsWidget googleMaps = new GoogleMapsWidget();
 
+            VerticalLayoutContainer vContainer = new VerticalLayoutContainer();
+            vContainer.add(new SearchBlockWidget());
+            vContainer.add(leftPanel);
+
             HorizontalLayoutContainer container = new HorizontalLayoutContainer();
-            container.add(leftPanel, new HorizontalLayoutData(0.25, 1));
+            container.add(vContainer, new HorizontalLayoutData(0.25, 1));
             container.add(googleMapsStub, new HorizontalLayoutData(0.75, 1));
 
             panel = new ContentPanel();
-            panel.setPixelSize(1365, 643);
+            panel.setPixelSize(1365, 643); //panel.setPixelSize(Window.getClientHeight(), Window.getClientHeight());
             panel.setHeaderVisible(false);
             panel.add(container);
         }
