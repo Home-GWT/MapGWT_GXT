@@ -13,7 +13,8 @@
 
     <!-- GXT Theme -->
     <!-- <inherits name='com.sencha.gxt_google_maps.theme.blue.Blue'/> -->
-    <inherits name='com.sencha.gxt.theme.gray.Gray' />
+    <!--<inherits name='com.sencha.gxt.theme.gray.Gray' />-->
+    <inherits name='com.sencha.gxt.theme.blue.Blue' />
     <!-- <inherits name="com.sencha.gxt_google_maps.theme.neptune.Theme" /> -->
     <inherits name="com.sencha.gxt.examples.resources.Resources"/>
 
