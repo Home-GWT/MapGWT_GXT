@@ -1,148 +1,154 @@
 package com.demo.gxt_google_maps.client.view;
 
-import com.demo.gxt_google_maps.client.rpc.GWTService;
-import com.demo.gxt_google_maps.client.rpc.StoreUtil;
-import com.demo.gxt_google_maps.shared.TitleTransit;
-import com.demo.gxt_google_maps.shared.Transit;
-import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.sencha.gxt.data.shared.ListStore;
-import com.sencha.gxt.widget.core.client.ContentPanel;
-import com.sencha.gxt.widget.core.client.TabPanel;
+import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Widget;
+import com.sencha.gxt.core.client.ValueProvider;
+import com.sencha.gxt.data.shared.ModelKeyProvider;
+import com.sencha.gxt.data.shared.TreeStore;
+import com.sencha.gxt.examples.resources.client.TestData;
+import com.sencha.gxt.examples.resources.client.images.ExampleImages;
+import com.sencha.gxt.examples.resources.client.model.BaseDto;
+import com.sencha.gxt.examples.resources.client.model.FolderDto;
+import com.sencha.gxt.examples.resources.client.model.MusicDto;
+import com.sencha.gxt.widget.core.client.FramedPanel;
+import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
-import com.sencha.gxt.widget.core.client.grid.Grid;
-import com.sencha.gxt.widget.core.client.grid.RowExpander;
+import com.sencha.gxt.widget.core.client.treegrid.TreeGrid;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuWidget extends Grid<Transit> {
+public class MenuWidget implements IsWidget {
 
-	private static final GWTService service = GWT.create(GWTService.class);
-
-    public static final DateTimeFormat                       df = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss");
-	private static ColumnConfig<Transit, Boolean>       viewCol = new ColumnConfig<Transit, Boolean>(service.checked1(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
-    private static ColumnConfig<Transit, Boolean>      foundCol = new ColumnConfig<Transit, Boolean>(service.checked2(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='Found' src='img/found.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
-	private static ColumnConfig<Transit, TitleTransit> objectCol = new ColumnConfig<Transit, TitleTransit>(service.title(), 230, SafeHtmlUtils.fromSafeConstant("<center>Объект</center>"));
-    private static ColumnConfig<Transit, Integer>      phoneCol = new ColumnConfig<Transit, Integer>(service.speed(), 40, "км/ч");
-    private static ColumnConfig<Transit, Boolean>       wifiCol = new ColumnConfig<Transit,Boolean>(service.wifi(),30, SafeHtmlUtils.fromSafeConstant("<img alt='Wi-Fi' src='img/wifi.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
-    private static RowExpander<Transit>             expanderRow = new RowExpander<Transit>(new AbstractCell<Transit>() {
+    class KeyProvider implements ModelKeyProvider<BaseDto> {
         @Override
-        public void render(Context context, Transit transit, SafeHtmlBuilder sb) {
-            sb.appendHtmlConstant("" + new ExpanderBuilder(transit));
+        public String getKey(BaseDto item) {
+            return (item instanceof FolderDto ? "f-" : "m-") + item.getId().toString();
         }
-    });
-
-    public MenuWidget() {
-        super(loadData(), createColumns());
-
-        this.setAllowTextSelection(true);
-        this.getView().setStripeRows(true);
-        this.getView().setColumnLines(true);
-        this.getView().setAutoExpandColumn(objectCol);
-        this.setBorders(false);
-        this.setColumnReordering(true);
-        this.setStateful(false);
-        expanderRow.initPlugin(this);
     }
 
-    private static ListStore<Transit> loadData(){
-        ListStore<Transit> store = new ListStore<Transit>(service.key());
-        store.addAll(StoreUtil.getData());
+    @Override
+    public Widget asWidget() {
+        FramedPanel panel = new FramedPanel();
+//        panel.setHeadingText("TreeGrid Editing");
+        panel.setHeaderVisible(false);
+//        panel.addStyleName("margin-10");
+        panel.setPixelSize(600, 300);
 
-        return store;
+        VerticalLayoutContainer v = new VerticalLayoutContainer();
+        v.setBorders(true);
+        panel.add(v);
+
+        TreeStore<BaseDto> store = new TreeStore<BaseDto>(new KeyProvider());
+
+        FolderDto root = TestData.getMusicRootFolder();
+        for (BaseDto base : root.getChildren()) {
+            store.add(base);
+            if (base instanceof FolderDto) {
+                processFolder(store, (FolderDto) base);
+            }
+        }
+
+        ColumnConfig<BaseDto, String> cc1 = new ColumnConfig<BaseDto, String>(new ValueProvider<BaseDto, String>() {
+            @Override
+            public String getValue(BaseDto object) {
+                return object.getName();
+            }
+            @Override
+            public void setValue(BaseDto object, String value) {
+                object.setName(value);
+            }
+            @Override
+            public String getPath() {
+                return "object";
+            }
+        });
+        cc1.setHeader(SafeHtmlUtils.fromString("Object"));
+        cc1.setWidth(400);
+
+        ColumnConfig<BaseDto, String> cc2 = new ColumnConfig<BaseDto, String>(new ValueProvider<BaseDto, String>() {
+            @Override
+            public String getValue(BaseDto object) {
+                return object instanceof MusicDto ? ((MusicDto) object).getAuthor() : "";
+            }
+            @Override
+            public void setValue(BaseDto object, String value) {
+                if (object instanceof MusicDto) {
+                    ((MusicDto) object).setAuthor(value);
+                }
+            }
+            @Override
+            public String getPath() {
+                return "km";
+            }
+        });
+        cc2.setHeader(SafeHtmlUtils.fromString("km"));
+        cc2.setWidth(50);
+
+        ColumnConfig<BaseDto, String> cc3 = new ColumnConfig<BaseDto, String>(new ValueProvider<BaseDto, String>() {
+            @Override
+            public String getValue(BaseDto object) {
+                return object instanceof MusicDto ? ((MusicDto) object).getGenre() : "";
+            }
+            @Override
+            public void setValue(BaseDto object, String value) {
+                if (object instanceof MusicDto) {
+                    ((MusicDto) object).setGenre(value);
+                }
+            }
+            @Override
+            public String getPath() {
+                return "connect";
+            }
+        });
+        cc3.setHeader("Connect");
+        cc3.setCell(new TextCell());
+        cc3.setWidth(75);
+
+        ColumnConfig<BaseDto, String> cc4 = new ColumnConfig<BaseDto, String>(new ValueProvider<BaseDto, String>() {
+            @Override
+            public String getValue(BaseDto object) {
+                return object instanceof MusicDto ? ((MusicDto) object).getGenre() : "";
+            }
+            @Override
+            public void setValue(BaseDto object, String value) {
+                if (object instanceof MusicDto) {
+                    ((MusicDto) object).setGenre(value);
+                }
+            }
+            @Override
+            public String getPath() {
+                return "status";
+            }
+        });
+        cc4.setHeader("Status");
+        cc4.setWidth(75);
+
+        List<ColumnConfig<BaseDto, ?>> l = new ArrayList<ColumnConfig<BaseDto, ?>>();
+        l.add(cc1);
+        l.add(cc2);
+        l.add(cc3);
+        l.add(cc4);
+        ColumnModel<BaseDto> cm = new ColumnModel<BaseDto>(l);
+
+        final TreeGrid<BaseDto> tree = new TreeGrid<BaseDto>(store, cm, cc1);
+        tree.getStyle().setLeafIcon(ExampleImages.INSTANCE.music());
+        tree.getView().setAutoExpandColumn(cc1);
+
+        v.add(tree, new VerticalLayoutData(1, 1));
+        return panel;
     }
 
-	private static ColumnModel<Transit> createColumns(){
-        viewCol.setCell(new AbstractCell<Boolean>() {
-            @Override
-            public void render(Context context, Boolean value, SafeHtmlBuilder sb) {
-                if(value){
-                    sb.appendHtmlConstant("<input name='checked1' id='checked1' type='checkbox' checked></input>");
-                } else {
-                    sb.appendHtmlConstant("<input name='checked1' id='checked1' type='checkbox'></input>");
-                }
+    private void processFolder(TreeStore<BaseDto> store, FolderDto folder) {
+        for (BaseDto child : folder.getChildren()) {
+            store.add(folder, child);
+            if (child instanceof FolderDto) {
+                processFolder(store, (FolderDto) child);
             }
-        });
-        foundCol.setCell(new AbstractCell<Boolean>() {
-            @Override
-            public void render(Context context, Boolean value, SafeHtmlBuilder sb) {
-                if(value){
-                    sb.appendHtmlConstant("<input name='checked2' id='checked2' type='checkbox' checked></input>");
-                } else {
-                    sb.appendHtmlConstant("<input name='checked2' id='checked2' type='checkbox'></input>");
-                }
-            }
-        });
-        objectCol.setCell(new AbstractCell<TitleTransit>() {
-            @Override
-            public void render(Context context, TitleTransit title, SafeHtmlBuilder sb) {
-                sb.appendHtmlConstant("<table cellspacing='3' cellpadding='0' border='0'>");
-                sb.appendHtmlConstant("<tr><td rowspan='2'><img alt='"+title.getVehicleType()+"' src='img/"+title.getVehicleType()+".png' width='30'/></td><td><font color='blue'><b>"+title.getNameVehicleType()+"</b></font></td></tr>");
-                sb.appendHtmlConstant("<tr><td>"+df.format(title.getTime())+"</td></tr>");
-                sb.appendHtmlConstant("</table>");
-            }
-        });
-        wifiCol.setCell(new AbstractCell<Boolean>() {
-            @Override
-            public void render(Context context, Boolean value, SafeHtmlBuilder sb) {
-                if(value){
-                    sb.appendHtmlConstant("<img src='img/wifi-enable.png'>");
-                } else {
-                    sb.appendHtmlConstant("<img src='img/wifi-disable.png'>");
-                }
-            }
-        });
-
-        List<ColumnConfig<Transit, ?>> columns = new ArrayList<ColumnConfig<Transit, ?>>();
-        expanderRow.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        viewCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        foundCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        phoneCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        wifiCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-
-        columns.add(expanderRow);
-        columns.add(viewCol);
-        columns.add(foundCol);
-        columns.add(objectCol);
-        columns.add(phoneCol);
-        columns.add(wifiCol);
-		return new ColumnModel<Transit>(columns);
-	}
-
-    static class ExpanderBuilder extends TabPanel {
-        public ExpanderBuilder(Transit transit){
-            StringBuilder expanderStringBuilder = new StringBuilder();
-            expanderStringBuilder.append("<table class='underline'>");
-            expanderStringBuilder.append("<tr><td>Водитель:</td> <td><font color='blue'>"+transit.getFirstName()+" "+transit.getLastName()+"</font></td></tr>");
-            expanderStringBuilder.append("<tr><td>Время (позиция):</td> <td>"+df.format(transit.getTimePosition())+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Время (сервер):</td> <td>"+df.format(transit.getTimeServer())+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Высота:</td> <td>"+transit.getHeight()+" м</td></tr>");
-            expanderStringBuilder.append("<tr><td>Модель:</td> <td>"+transit.getModel()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Номер:</td> <td>"+transit.getNumber()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Одометр:</td> <td>"+transit.getDistance()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Позиция:</td> <td><a href='https://www.google.com.ua/maps/@"+transit.getPosition().getLatitude()+","+transit.getPosition().getLongitude()+",8.75z' target='_blank' title='Показать на карте'>" +transit.getPosition().getLatitude()+"', "+transit.getPosition().getLongitude() +"'</a></td></tr>");
-            expanderStringBuilder.append("<tr><td>Угол:</td> <td>"+transit.getDegree()+"'</td></tr>");
-            expanderStringBuilder.append("</table>");
-
-            ContentPanel currentPanel = new ContentPanel();
-            ContentPanel routesPanel = new ContentPanel();
-            ContentPanel notificationsPanel = new ContentPanel();
-            currentPanel.add(new HTML(expanderStringBuilder.toString()));
-            routesPanel.add(new HTML("none"));
-            notificationsPanel.add(new HTML("none"));
-            currentPanel.setHeaderVisible(false); routesPanel.setHeaderVisible(false); notificationsPanel.setHeaderVisible(false);
-
-            add(currentPanel, "Сейчас");
-            add(routesPanel, "Маршруты");
-            add(notificationsPanel, "Оповещения");
-            setAutoSelect(true);
         }
     }
 }
