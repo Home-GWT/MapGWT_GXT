@@ -1,8 +1,6 @@
 # [Traccar](http://40.85.89.103:8082/?locale=ru)
 
-![interface1.1.jpg](interface1.1.jpg)
-
-![project.jpg](project.jpg)
+![interface1.1.jpg](interface2.0.jpg)
 
 
 # Docs Sencha-GXT
