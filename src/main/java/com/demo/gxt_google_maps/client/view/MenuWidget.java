@@ -13,11 +13,16 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.widget.core.client.ContentPanel;
+import com.sencha.gxt.widget.core.client.Dialog;
 import com.sencha.gxt.widget.core.client.TabPanel;
+import com.sencha.gxt.widget.core.client.box.MessageBox;
+import com.sencha.gxt.widget.core.client.button.ButtonBar;
+import com.sencha.gxt.widget.core.client.button.TextButton;
+import com.sencha.gxt.widget.core.client.event.HideEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 import com.sencha.gxt.widget.core.client.grid.Grid;
-import com.sencha.gxt.widget.core.client.grid.RowExpander;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +37,7 @@ public class MenuWidget extends Grid<Transit> {
     private static ColumnConfig<Transit, TitleTransit> objectCol = new ColumnConfig<Transit, TitleTransit>(service.title(), 230, SafeHtmlUtils.fromSafeConstant("<center>Объект</center>"));
     private static ColumnConfig<Transit, Integer>      phoneCol = new ColumnConfig<Transit, Integer>(service.speed(), 40, "км/ч");
     private static ColumnConfig<Transit, Boolean>       wifiCol = new ColumnConfig<Transit,Boolean>(service.wifi(),30, SafeHtmlUtils.fromSafeConstant("<img alt='Wi-Fi' src='img/wifi.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
+    private static ColumnConfig<Transit, Boolean>       stateCol = new ColumnConfig<Transit, Boolean>(service.checked1(), 25, "");
 //    private static RowExpander<Transit>             expanderRow = new RowExpander<Transit>(new AbstractCell<Transit>() {
 //        @Override
 //        public void render(Context context, Transit transit, SafeHtmlBuilder sb) {
@@ -99,6 +105,44 @@ public class MenuWidget extends Grid<Transit> {
             }
         });
 
+        final ButtonBar statusBar = new ButtonBar();
+        TextButton statusButton = new TextButton("Ok");
+        statusButton.addSelectHandler(new SelectEvent.SelectHandler() {
+            @Override
+            public void onSelect(SelectEvent event) {
+                MessageBox box = new MessageBox("<center>Состояние</center>", "");
+                box.setWidth(600);
+                box.setPredefinedButtons(Dialog.PredefinedButton.OK, Dialog.PredefinedButton.CANCEL);
+                box.setMessage("<center><table border='1' width='100%' cellpadding='10' cellspacing='0'>"
+                        +"<tr><td>Водитель</td><td><i>Ivan Petrov</i></td></tr>"
+                        +"<tr><td>Время (позиция)</td><td><i>2016-02-20 11:49:11</i></td></tr>"
+                        +"<tr><td>Время (сервер)</td> <td><i>2016-02-20 11:47:44</i></td></tr>"
+                        +"<tr><td>Высота</td> <td><i>107 м</i></td></tr>"
+                        +"<tr><td>Модель</td> <td><i>Honda NSX</i></td></tr>"
+                        +"<tr><td>Номер</td> <td><i>NSX123</i></td></tr>"
+                        +"<tr><td>Одометр</td> <td><i>423511</i></td></tr>"
+                        +"<tr><td>Позиция</td> <td><i>53.587648,-2.558620'</i></td></tr>"
+                        +"<tr><td>Угол</td> <td><i>148'</i></td></tr>"
+                        +"</table></center>");
+                box.addHideHandler(new HideEvent.HideHandler() {
+                    @Override
+                    public void onHide(HideEvent event) {
+                        Dialog btn = (Dialog) event.getSource();
+//                        String msg = Format.substitute("The '{0}' button was pressed", btn.getHideButton().getText());
+//                        Info.display("MessageBox", msg);
+                    }
+                });
+                box.show();
+            }
+        });
+        statusBar.add(statusButton);
+        stateCol.setCell(new AbstractCell<Boolean>() {
+            @Override
+            public void render(Context context, Boolean value, SafeHtmlBuilder sb) {
+                sb.appendHtmlConstant("<a href='#'><img alt='gear' src='img/gear.png' style='margin-top:4px; margin-left:-1px;'/></a>");
+            }
+        });
+
         List<ColumnConfig<Transit, ?>> columns = new ArrayList<ColumnConfig<Transit, ?>>();
         viewCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         foundCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -110,6 +154,7 @@ public class MenuWidget extends Grid<Transit> {
         columns.add(objectCol);
         columns.add(phoneCol);
         columns.add(wifiCol);
+        columns.add(stateCol);
         return new ColumnModel<Transit>(columns);
     }
 
