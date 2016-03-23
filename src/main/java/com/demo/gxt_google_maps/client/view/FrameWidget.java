@@ -83,7 +83,7 @@ public class FrameWidget implements IsWidget {
         container.setSouthWidget(bottomPanel, bottomData);  // нижняя полоса
 
         SimpleContainer simple = new SimpleContainer();
-        simple.add(container);
+        simple.add(container, new MarginData(0));
 
         return simple;
     }
