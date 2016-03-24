@@ -103,7 +103,7 @@ public class MenuWidget extends Grid<Transit> {
                 Transit transit = MenuWidget.loadData().get(event.getContext().getIndex());
                 MessageBox box = new MessageBox("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Состояние", "");
                 box.setWidth(800);
-                box.setHeight(450); //box.setHeight(395);
+                box.setHeight(450);
                 box.setPredefinedButtons(Dialog.PredefinedButton.YES, Dialog.PredefinedButton.CANCEL);
                 box.setMessage("<style>table.mydialog{padding:10px;border-radius:10px;border-color:#000;background:#adb3c5;}table.mydialogin{padding:10px;}table.mydialogin th,td{border-bottom:1px solid #fff;}</style>"
                         + "<center><table class='mydialog' border='1' width='760' cellpadding='15' cellspacing='0'><tr><td>"
