@@ -31,12 +31,12 @@ public class MenuWidget extends Grid<Transit> {
     private static final GWTService service = GWT.create(GWTService.class);
 
     public static final DateTimeFormat                       df = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss");
-    private static ColumnConfig<Transit, Boolean>       viewCol = new ColumnConfig<Transit, Boolean>(service.checked1(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
-    private static ColumnConfig<Transit, Boolean>      foundCol = new ColumnConfig<Transit, Boolean>(service.checked2(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='Found' src='img/found.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
-    private static ColumnConfig<Transit, TitleTransit> objectCol = new ColumnConfig<Transit, TitleTransit>(service.title(), 230, SafeHtmlUtils.fromSafeConstant("<center>Объект</center>"));
+    private static ColumnConfig<Transit, Boolean>       viewCol = new ColumnConfig<Transit, Boolean>(service.checked1(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='View' src='img/view.png' width='14' style='margin-left:-1px;'/>"));
+    private static ColumnConfig<Transit, Boolean>      foundCol = new ColumnConfig<Transit, Boolean>(service.checked2(), 30, SafeHtmlUtils.fromSafeConstant("<img alt='Found' src='img/found.png' width='14' style='margin-left:-1px;'/>"));
+    private static ColumnConfig<Transit, TitleTransit> objectCol = new ColumnConfig<Transit, TitleTransit>(service.title(), 233, SafeHtmlUtils.fromSafeConstant("<center>Объект</center>"));
     private static ColumnConfig<Transit, Integer>      phoneCol = new ColumnConfig<Transit, Integer>(service.speed(), 40, "км/ч");
-    private static ColumnConfig<Transit, Boolean>       wifiCol = new ColumnConfig<Transit,Boolean>(service.wifi(),30, SafeHtmlUtils.fromSafeConstant("<img alt='Wi-Fi' src='img/wifi.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
-    private static ColumnConfig<Transit, String>       stateCol = new ColumnConfig<Transit, String>(service.state(), 35, "");
+    private static ColumnConfig<Transit, Boolean>       wifiCol = new ColumnConfig<Transit,Boolean>(service.wifi(),30, SafeHtmlUtils.fromSafeConstant("<img alt='Wi-Fi' src='img/wifi.png' width='14' style='margin-left:-1px;'/>"));
+    private static ColumnConfig<Transit, String>       stateCol = new ColumnConfig<Transit, String>(service.state(), 37, "");
 
     public MenuWidget() {
         super(loadData(), createColumns());
@@ -105,20 +105,25 @@ public class MenuWidget extends Grid<Transit> {
                 //int row = c.getIndex();
                 //Plant p = store2.get(row);
                 //Info.display("Event", "The " + p.getName() + " was clicked.");
-                MessageBox box = new MessageBox("<center>Состояние</center>", "");
-                box.setWidth(600);
-                box.setPredefinedButtons(Dialog.PredefinedButton.OK, Dialog.PredefinedButton.CANCEL);
-                box.setMessage("<center><table border='1' width='100%' cellpadding='10' cellspacing='0'>"
-                        + "<tr><td>Водитель</td><td><i>Ivan Petrov</i></td></tr>"
-                        + "<tr><td>Время (позиция)</td><td><i>2016-02-20 11:49:11</i></td></tr>"
-                        + "<tr><td>Время (сервер)</td> <td><i>2016-02-20 11:47:44</i></td></tr>"
-                        + "<tr><td>Высота</td> <td><i>107 м</i></td></tr>"
-                        + "<tr><td>Модель</td> <td><i>Honda NSX</i></td></tr>"
-                        + "<tr><td>Номер</td> <td><i>NSX123</i></td></tr>"
-                        + "<tr><td>Одометр</td> <td><i>423511</i></td></tr>"
-                        + "<tr><td>Позиция</td> <td><i>53.587648,-2.558620'</i></td></tr>"
-                        + "<tr><td>Угол</td> <td><i>148'</i></td></tr>"
-                        + "</table></center>");
+                MessageBox box = new MessageBox("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Состояние", "");
+                box.setWidth(800);
+                box.setHeight(395);
+                box.setPredefinedButtons(Dialog.PredefinedButton.YES, Dialog.PredefinedButton.CANCEL);
+                box.setMessage("<style>table.mydialog{padding:10px;border-radius:10px;border-color:#000;background:#adb3c5;}table.mydialogin{padding:10px;}table.mydialogin th,td{border-bottom:1px solid #fff;}</style>"
+                        + "<center><table class='mydialog' border='1' width='760' cellpadding='15' cellspacing='0'><tr><td>"
+                        + "<table class='mydialogin' border='0' width='100%' cellspacing='0'>"
+                        + "<tr><td><br>Водитель</td><td><br><i>Ivan Petrov</i></td></tr>"
+                        + "<tr><td><br>Время (позиция)</td><td><br><i>2016-02-20 11:49:11</i></td></tr>"
+                        + "<tr><td><br>Время (сервер)</td> <td><br><i>2016-02-20 11:47:44</i></td></tr>"
+                        + "<tr><td><br>Высота</td> <td><br><i>107 м</i></td></tr>"
+                        + "<tr><td><br>Модель</td> <td><br><i>Honda NSX</i></td></tr>"
+                        + "<tr><td><br>Номер</td> <td><br><i>NSX123</i></td></tr>"
+                        + "<tr><td><br>Одометр</td> <td><br><i>423511</i></td></tr>"
+                        + "<tr><td><br>Позиция</td> <td><br><i>53.587648,-2.558620'</i></td></tr>"
+                        + "<tr><td><br>Угол</td> <td><br><i>148'</i></td></tr>"
+                        + "</table>"
+                        + "<br>"
+                        + "</td></tr></table></center>");
                 box.addHideHandler(new HideEvent.HideHandler() {
                     @Override
                     public void onHide(HideEvent event) {}
