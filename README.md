@@ -7,3 +7,4 @@
 
 * `138.91.61.42:8080` [frontend-1.0.1-SNAPSHOT-Sasha](http://138.91.61.42:8080/frontend-1.0.1-SNAPSHOT-Sasha/)
 * `docx` [КОНЦЕПЦИЯ ПРОЕКТА ТРЕКЛАБ (правки).docx](https://mail.google.com/mail/u/0/?tab=wm#inbox/1538ef6545d2ccc0?projector=1)
+* `карты` [treklab-examples](https://bitbucket.org/treklab/treklab-examples) ( **https://skmets@bitbucket.org/treklab/treklab-examples.git** )
