@@ -11,13 +11,12 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.sencha.gxt.cell.core.client.TextButtonCell;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.Dialog;
 import com.sencha.gxt.widget.core.client.TabPanel;
 import com.sencha.gxt.widget.core.client.box.MessageBox;
-import com.sencha.gxt.widget.core.client.button.ButtonBar;
-import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.HideEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
@@ -37,13 +36,7 @@ public class MenuWidget extends Grid<Transit> {
     private static ColumnConfig<Transit, TitleTransit> objectCol = new ColumnConfig<Transit, TitleTransit>(service.title(), 230, SafeHtmlUtils.fromSafeConstant("<center>Объект</center>"));
     private static ColumnConfig<Transit, Integer>      phoneCol = new ColumnConfig<Transit, Integer>(service.speed(), 40, "км/ч");
     private static ColumnConfig<Transit, Boolean>       wifiCol = new ColumnConfig<Transit,Boolean>(service.wifi(),30, SafeHtmlUtils.fromSafeConstant("<img alt='Wi-Fi' src='img/wifi.png' width='23' style='margin-top:-4px; margin-left:-1px;'/>"));
-    private static ColumnConfig<Transit, Boolean>       stateCol = new ColumnConfig<Transit, Boolean>(service.checked1(), 25, "");
-//    private static RowExpander<Transit>             expanderRow = new RowExpander<Transit>(new AbstractCell<Transit>() {
-//        @Override
-//        public void render(Context context, Transit transit, SafeHtmlBuilder sb) {
-//            sb.appendHtmlConstant("" + new ExpanderBuilder(transit));
-//        }
-//    });
+    private static ColumnConfig<Transit, String>       stateCol = new ColumnConfig<Transit, String>(service.state(), 35, "");
 
     public MenuWidget() {
         super(loadData(), createColumns());
@@ -104,44 +97,37 @@ public class MenuWidget extends Grid<Transit> {
                 }
             }
         });
-
-        final ButtonBar statusBar = new ButtonBar();
-        TextButton statusButton = new TextButton("Ok");
-        statusButton.addSelectHandler(new SelectEvent.SelectHandler() {
+        TextButtonCell stateButton = new TextButtonCell();
+        stateButton.addSelectHandler(new SelectEvent.SelectHandler() {
             @Override
             public void onSelect(SelectEvent event) {
+                //Cell.Context c = event.getContext();
+                //int row = c.getIndex();
+                //Plant p = store2.get(row);
+                //Info.display("Event", "The " + p.getName() + " was clicked.");
                 MessageBox box = new MessageBox("<center>Состояние</center>", "");
                 box.setWidth(600);
                 box.setPredefinedButtons(Dialog.PredefinedButton.OK, Dialog.PredefinedButton.CANCEL);
                 box.setMessage("<center><table border='1' width='100%' cellpadding='10' cellspacing='0'>"
-                        +"<tr><td>Водитель</td><td><i>Ivan Petrov</i></td></tr>"
-                        +"<tr><td>Время (позиция)</td><td><i>2016-02-20 11:49:11</i></td></tr>"
-                        +"<tr><td>Время (сервер)</td> <td><i>2016-02-20 11:47:44</i></td></tr>"
-                        +"<tr><td>Высота</td> <td><i>107 м</i></td></tr>"
-                        +"<tr><td>Модель</td> <td><i>Honda NSX</i></td></tr>"
-                        +"<tr><td>Номер</td> <td><i>NSX123</i></td></tr>"
-                        +"<tr><td>Одометр</td> <td><i>423511</i></td></tr>"
-                        +"<tr><td>Позиция</td> <td><i>53.587648,-2.558620'</i></td></tr>"
-                        +"<tr><td>Угол</td> <td><i>148'</i></td></tr>"
-                        +"</table></center>");
+                        + "<tr><td>Водитель</td><td><i>Ivan Petrov</i></td></tr>"
+                        + "<tr><td>Время (позиция)</td><td><i>2016-02-20 11:49:11</i></td></tr>"
+                        + "<tr><td>Время (сервер)</td> <td><i>2016-02-20 11:47:44</i></td></tr>"
+                        + "<tr><td>Высота</td> <td><i>107 м</i></td></tr>"
+                        + "<tr><td>Модель</td> <td><i>Honda NSX</i></td></tr>"
+                        + "<tr><td>Номер</td> <td><i>NSX123</i></td></tr>"
+                        + "<tr><td>Одометр</td> <td><i>423511</i></td></tr>"
+                        + "<tr><td>Позиция</td> <td><i>53.587648,-2.558620'</i></td></tr>"
+                        + "<tr><td>Угол</td> <td><i>148'</i></td></tr>"
+                        + "</table></center>");
                 box.addHideHandler(new HideEvent.HideHandler() {
                     @Override
-                    public void onHide(HideEvent event) {
-                        Dialog btn = (Dialog) event.getSource();
-//                        String msg = Format.substitute("The '{0}' button was pressed", btn.getHideButton().getText());
-//                        Info.display("MessageBox", msg);
-                    }
+                    public void onHide(HideEvent event) {}
                 });
                 box.show();
             }
         });
-        statusBar.add(statusButton);
-        stateCol.setCell(new AbstractCell<Boolean>() {
-            @Override
-            public void render(Context context, Boolean value, SafeHtmlBuilder sb) {
-                sb.appendHtmlConstant("<a href='#'><img alt='gear' src='img/gear.png' style='margin-top:4px; margin-left:-1px;'/></a>");
-            }
-        });
+        stateButton.setHTML(SafeHtmlUtils.fromSafeConstant("<img alt='gear' src='img/gear.png'/>"));
+        stateCol.setCell(stateButton);
 
         List<ColumnConfig<Transit, ?>> columns = new ArrayList<ColumnConfig<Transit, ?>>();
         viewCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);

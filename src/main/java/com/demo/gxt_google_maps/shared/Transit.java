@@ -25,9 +25,10 @@ public class Transit implements Serializable {
     private Boolean checked1;
     private Boolean checked2;
     private TitleTransit title;
+    private String state;
 
     public Transit(){}
-    public Transit(Integer id, String firstName, String lastName, Date time, Date timePosition, Date timeServer, Integer speed, Integer height, String model, String number, Integer distance, PositionTransit position, Integer degree, Boolean wifi, Boolean checked1, Boolean checked2, VehicleTypeTransit vehicleType) {
+    public Transit(Integer id, String firstName, String lastName, Date time, Date timePosition, Date timeServer, Integer speed, Integer height, String model, String number, Integer distance, PositionTransit position, Integer degree, Boolean wifi, Boolean checked1, Boolean checked2, VehicleTypeTransit vehicleType, String state) {
         super();
 
         this.id = id;
@@ -48,6 +49,7 @@ public class Transit implements Serializable {
         this.checked2 = checked2;
         this.vehicleType = vehicleType;
         title = new TitleTransit(time, vehicleType);
+        this.state = state;
     }
 	
 	public Integer getId() {
@@ -192,5 +194,13 @@ public class Transit implements Serializable {
 
     public void setTitle(TitleTransit title) {
         this.title = title;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

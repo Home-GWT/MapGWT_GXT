@@ -32,6 +32,5 @@ public interface GWTService extends PropertyAccess<Transit> {
     ValueProvider<Transit, Boolean> checked1();
     ValueProvider<Transit, Boolean> checked2();
     ValueProvider<Transit, TitleTransit> title();
-
-
+    ValueProvider<Transit, String> state();
 }

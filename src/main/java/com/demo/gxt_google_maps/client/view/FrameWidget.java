@@ -56,7 +56,7 @@ public class FrameWidget implements IsWidget {
         inViewport.add(widget);
         ////////////
         TabPanel tabPanel = new TabPanel();
-        tabPanel.setWidth(315);
+        tabPanel.setWidth(325);
 
         tabPanel.add(inViewport, "Objects");
 
@@ -86,7 +86,7 @@ public class FrameWidget implements IsWidget {
         bottomPanel.setHeaderVisible(false);
         bottomPanel.hide();
 
-        BorderLayoutData leftData = new BorderLayoutData(315);
+        BorderLayoutData leftData = new BorderLayoutData(325);
         leftData.setCollapsible(true);
         leftData.setSplit(true);
         leftData.setCollapseMini(true);
