@@ -1,8 +1,10 @@
 package com.demo.gxt_google_maps.client.view;
 
+import com.demo.gxt_google_maps.shared.Transit;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
+import com.sencha.gxt.core.client.Style;
 import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.TabPanel;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
@@ -10,6 +12,8 @@ import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderL
 import com.sencha.gxt.widget.core.client.container.MarginData;
 import com.sencha.gxt.widget.core.client.container.SimpleContainer;
 import com.sencha.gxt.widget.core.client.container.Viewport;
+import com.sencha.gxt.widget.core.client.info.Info;
+import com.sencha.gxt.widget.core.client.selection.SelectionChangedEvent;
 
 public class FrameWidget implements IsWidget {
     public Widget asWidget() {
@@ -31,12 +35,11 @@ public class FrameWidget implements IsWidget {
 
                 ContentPanel inCenterPanel = new ContentPanel();
                 inCenterPanel.setHeaderVisible(false);
-                inCenterPanel.add(new MenuWidget());
+                MenuWidget menu = new MenuWidget();
+                inCenterPanel.add(menu);
 
-                ContentPanel inBottomPanel = new ContentPanel();
+                final ContentPanel inBottomPanel = new ContentPanel();
                 inBottomPanel.setHeaderVisible(false);
-                ExpanderBuilder eb = new ExpanderBuilder(1);
-                inBottomPanel.add(new HTML(eb.getBuilder()));
 //                inBottomPanel.getElement().setScrollLeft(10);
 
                 BorderLayoutData inNorthData = new BorderLayoutData(36);
@@ -44,11 +47,22 @@ public class FrameWidget implements IsWidget {
                 inNorthData.setCollapseMini(false);
                 inNorthData.setSplit(false);
                 MarginData inCenterData = new MarginData();
-                BorderLayoutData inBottomData = new BorderLayoutData(285);
+                final BorderLayoutData inBottomData = new BorderLayoutData(285);
                 inBottomData.setCollapsible(true);
                 inBottomData.setCollapseMini(true);
+                inBottomData.setCollapsed(true);
                 inBottomData.setSplit(true);
                 inBottomData.setMinSize(250);
+                menu.getSelectionModel().setSelectionMode(Style.SelectionMode.SINGLE);
+                menu.getSelectionModel().addSelectionChangedHandler(new SelectionChangedEvent.SelectionChangedHandler<Transit>() {
+                    @Override
+                    public void onSelectionChanged(SelectionChangedEvent<Transit> event) {
+                        ExpanderBuilder inEb = new ExpanderBuilder(event.getSource().getSelectedItem());
+                        inBottomPanel.add(new HTML(inEb.getBuilder()));
+//                        inBottomPanel.show();
+                        inBottomPanel.expand();
+                    }
+                });
 
                 inContainer.setNorthWidget(inNorthPanel, inNorthData);
                 inContainer.setCenterWidget(inCenterPanel, inCenterData);

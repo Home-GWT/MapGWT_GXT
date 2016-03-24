@@ -9,13 +9,10 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.sencha.gxt.cell.core.client.TextButtonCell;
 import com.sencha.gxt.data.shared.ListStore;
-import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.Dialog;
-import com.sencha.gxt.widget.core.client.TabPanel;
 import com.sencha.gxt.widget.core.client.box.MessageBox;
 import com.sencha.gxt.widget.core.client.event.HideEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
@@ -103,24 +100,23 @@ public class MenuWidget extends Grid<Transit> {
             public void onSelect(SelectEvent event) {
                 //Cell.Context c = event.getContext();
                 //int row = c.getIndex();
-                //Plant p = store2.get(row);
-                //Info.display("Event", "The " + p.getName() + " was clicked.");
+                Transit transit = MenuWidget.loadData().get(event.getContext().getIndex());
                 MessageBox box = new MessageBox("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Состояние", "");
                 box.setWidth(800);
-                box.setHeight(395);
+                box.setHeight(450); //box.setHeight(395);
                 box.setPredefinedButtons(Dialog.PredefinedButton.YES, Dialog.PredefinedButton.CANCEL);
                 box.setMessage("<style>table.mydialog{padding:10px;border-radius:10px;border-color:#000;background:#adb3c5;}table.mydialogin{padding:10px;}table.mydialogin th,td{border-bottom:1px solid #fff;}</style>"
                         + "<center><table class='mydialog' border='1' width='760' cellpadding='15' cellspacing='0'><tr><td>"
                         + "<table class='mydialogin' border='0' width='100%' cellspacing='0'>"
-                        + "<tr><td><br>Водитель</td><td><br><i>Ivan Petrov</i></td></tr>"
-                        + "<tr><td><br>Время (позиция)</td><td><br><i>2016-02-20 11:49:11</i></td></tr>"
-                        + "<tr><td><br>Время (сервер)</td> <td><br><i>2016-02-20 11:47:44</i></td></tr>"
-                        + "<tr><td><br>Высота</td> <td><br><i>107 м</i></td></tr>"
-                        + "<tr><td><br>Модель</td> <td><br><i>Honda NSX</i></td></tr>"
-                        + "<tr><td><br>Номер</td> <td><br><i>NSX123</i></td></tr>"
-                        + "<tr><td><br>Одометр</td> <td><br><i>423511</i></td></tr>"
-                        + "<tr><td><br>Позиция</td> <td><br><i>53.587648,-2.558620'</i></td></tr>"
-                        + "<tr><td><br>Угол</td> <td><br><i>148'</i></td></tr>"
+                        + "<tr><td><br>Водитель</td><td><br><input type='text' name='name' size='25' value='"+transit.getFirstName()+" "+transit.getLastName()+"' maxlength='50'></td></tr>"
+                        + "<tr><td><br>Время (позиция)</td><td><br><input type='text' name='name' size='25' value='"+MenuWidget.df.format(transit.getTimePosition())+"' maxlength='50'></td></tr>"
+                        + "<tr><td><br>Время (сервер)</td> <td><br><input type='text' name='name' size='25' value='"+MenuWidget.df.format(transit.getTimeServer())+"' maxlength='50'></td></tr>"
+                        + "<tr><td><br>Высота</td> <td><br><input type='text' name='name' size='25' value='"+transit.getHeight()+"' maxlength='50'></td></tr>"
+                        + "<tr><td><br>Модель</td> <td><br><input type='text' name='name' size='25' value='"+transit.getModel()+"' maxlength='50'></td></tr>"
+                        + "<tr><td><br>Номер</td> <td><br><input type='text' name='name' size='25' value='"+transit.getNumber()+"' maxlength='50'></td></tr>"
+                        + "<tr><td><br>Одометр</td> <td><br><input type='text' name='name' size='25' value='"+transit.getDistance()+"' maxlength='50'></td></tr>"
+                        + "<tr><td><br>Позиция</td> <td><br><a href='https://www.google.com.ua/maps/@"+transit.getPosition().getLatitude()+","+transit.getPosition().getLongitude()+",8.75z' target='_blank' title='Показать на карте'>" +transit.getPosition().getLatitude()+"', "+transit.getPosition().getLongitude()+"</td></tr>"
+                        + "<tr><td><br>Угол</td> <td><br><input type='text' name='name' size='25' value='"+transit.getDegree()+"'' maxlength='50'></td></tr>"
                         + "</table>"
                         + "<br>"
                         + "</td></tr></table></center>");
@@ -149,33 +145,33 @@ public class MenuWidget extends Grid<Transit> {
         return new ColumnModel<Transit>(columns);
     }
 
-    static class ExpanderBuilder extends TabPanel {
-        public ExpanderBuilder(Transit transit){
-            StringBuilder expanderStringBuilder = new StringBuilder();
-            expanderStringBuilder.append("<table class='underline'>");
-            expanderStringBuilder.append("<tr><td>Водитель:</td> <td><font color='blue'>"+transit.getFirstName()+" "+transit.getLastName()+"</font></td></tr>");
-            expanderStringBuilder.append("<tr><td>Время (позиция):</td> <td>"+df.format(transit.getTimePosition())+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Время (сервер):</td> <td>"+df.format(transit.getTimeServer())+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Высота:</td> <td>"+transit.getHeight()+" м</td></tr>");
-            expanderStringBuilder.append("<tr><td>Модель:</td> <td>"+transit.getModel()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Номер:</td> <td>"+transit.getNumber()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Одометр:</td> <td>"+transit.getDistance()+"</td></tr>");
-            expanderStringBuilder.append("<tr><td>Позиция:</td> <td><a href='https://www.google.com.ua/maps/@"+transit.getPosition().getLatitude()+","+transit.getPosition().getLongitude()+",8.75z' target='_blank' title='Показать на карте'>" +transit.getPosition().getLatitude()+"', "+transit.getPosition().getLongitude() +"'</a></td></tr>");
-            expanderStringBuilder.append("<tr><td>Угол:</td> <td>"+transit.getDegree()+"'</td></tr>");
-            expanderStringBuilder.append("</table>");
-
-            ContentPanel currentPanel = new ContentPanel();
-            ContentPanel routesPanel = new ContentPanel();
-            ContentPanel notificationsPanel = new ContentPanel();
-            currentPanel.add(new HTML(expanderStringBuilder.toString()));
-            routesPanel.add(new HTML("none"));
-            notificationsPanel.add(new HTML("none"));
-            currentPanel.setHeaderVisible(false); routesPanel.setHeaderVisible(false); notificationsPanel.setHeaderVisible(false);
-
-            add(currentPanel, "Сейчас");
-            add(routesPanel, "Маршруты");
-            add(notificationsPanel, "Оповещения");
-            setAutoSelect(true);
-        }
-    }
+//    static class ExpanderBuilder extends TabPanel {
+//        public ExpanderBuilder(Transit transit){
+//            StringBuilder expanderStringBuilder = new StringBuilder();
+//            expanderStringBuilder.append("<table class='underline'>");
+//            expanderStringBuilder.append("<tr><td>Водитель:</td> <td><font color='blue'>"+transit.getFirstName()+" "+transit.getLastName()+"</font></td></tr>");
+//            expanderStringBuilder.append("<tr><td>Время (позиция):</td> <td>"+df.format(transit.getTimePosition())+"</td></tr>");
+//            expanderStringBuilder.append("<tr><td>Время (сервер):</td> <td>"+df.format(transit.getTimeServer())+"</td></tr>");
+//            expanderStringBuilder.append("<tr><td>Высота:</td> <td>"+transit.getHeight()+" м</td></tr>");
+//            expanderStringBuilder.append("<tr><td>Модель:</td> <td>"+transit.getModel()+"</td></tr>");
+//            expanderStringBuilder.append("<tr><td>Номер:</td> <td>"+transit.getNumber()+"</td></tr>");
+//            expanderStringBuilder.append("<tr><td>Одометр:</td> <td>"+transit.getDistance()+"</td></tr>");
+//            expanderStringBuilder.append("<tr><td>Позиция:</td> <td><a href='https://www.google.com.ua/maps/@"+transit.getPosition().getLatitude()+","+transit.getPosition().getLongitude()+",8.75z' target='_blank' title='Показать на карте'>" +transit.getPosition().getLatitude()+"', "+transit.getPosition().getLongitude() +"'</a></td></tr>");
+//            expanderStringBuilder.append("<tr><td>Угол:</td> <td>"+transit.getDegree()+"'</td></tr>");
+//            expanderStringBuilder.append("</table>");
+//
+//            ContentPanel currentPanel = new ContentPanel();
+//            ContentPanel routesPanel = new ContentPanel();
+//            ContentPanel notificationsPanel = new ContentPanel();
+//            currentPanel.add(new HTML(expanderStringBuilder.toString()));
+//            routesPanel.add(new HTML("none"));
+//            notificationsPanel.add(new HTML("none"));
+//            currentPanel.setHeaderVisible(false); routesPanel.setHeaderVisible(false); notificationsPanel.setHeaderVisible(false);
+//
+//            add(currentPanel, "Сейчас");
+//            add(routesPanel, "Маршруты");
+//            add(notificationsPanel, "Оповещения");
+//            setAutoSelect(true);
+//        }
+//    }
 }
