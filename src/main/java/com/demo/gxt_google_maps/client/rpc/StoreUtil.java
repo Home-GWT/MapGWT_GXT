@@ -1,6 +1,7 @@
 package com.demo.gxt_google_maps.client.rpc;
 
 import com.demo.gxt_google_maps.shared.PositionTransit;
+import com.demo.gxt_google_maps.shared.TitleTransit;
 import com.demo.gxt_google_maps.shared.Transit;
 import com.demo.gxt_google_maps.shared.VehicleTypeTransit;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -26,4 +27,10 @@ public class StoreUtil {
         }
 		return lData;
 	}
+
+    public static List<TitleTransit> getTitleTransits() {
+        ArrayList titleTransits = new ArrayList();
+        for (Transit transit:StoreUtil.getData()) titleTransits.add(transit.getTitle());
+        return titleTransits;
+    }
 }

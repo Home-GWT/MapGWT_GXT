@@ -25,6 +25,10 @@ public class FrameWidget implements IsWidget {
                 final BorderLayoutContainer inContainer = new BorderLayoutContainer();
                 inContainer.setBorders(true);
 
+                ContentPanel inNorthPanel = new ContentPanel();
+                inNorthPanel.setHeaderVisible(false);
+                inNorthPanel.add(new SearchWidget());
+
                 ContentPanel inCenterPanel = new ContentPanel();
                 inCenterPanel.setHeaderVisible(false);
                 inCenterPanel.add(new MenuWidget());
@@ -35,6 +39,10 @@ public class FrameWidget implements IsWidget {
                 inBottomPanel.add(new HTML(eb.getBuilder()));
 //                inBottomPanel.getElement().setScrollLeft(10);
 
+                BorderLayoutData inNorthData = new BorderLayoutData(36);
+                inNorthData.setCollapsible(false);
+                inNorthData.setCollapseMini(false);
+                inNorthData.setSplit(false);
                 MarginData inCenterData = new MarginData();
                 BorderLayoutData inBottomData = new BorderLayoutData(285);
                 inBottomData.setCollapsible(true);
@@ -42,6 +50,7 @@ public class FrameWidget implements IsWidget {
                 inBottomData.setSplit(true);
                 inBottomData.setMinSize(250);
 
+                inContainer.setNorthWidget(inNorthPanel, inNorthData);
                 inContainer.setCenterWidget(inCenterPanel, inCenterData);
                 inContainer.setSouthWidget(inBottomPanel, inBottomData);
 
